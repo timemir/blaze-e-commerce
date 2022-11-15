@@ -13,6 +13,7 @@ export default function Navbar() {
                 </a>
             </div>
             {/* Links */}
+
             <NavLinks />
             <div className="flex justify-center items-center space-x-2">
                 <SearchBar />
