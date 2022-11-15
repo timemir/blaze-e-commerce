@@ -3,10 +3,11 @@
 This is the Blaze e-commerce platform. It is a full-stack e-commerce platform built with React. It focuses on providing a great user experience for both the store owner and the customer.
 It is a work in progress, and is not yet ready for production use.
 
-Check it out live at [blaze.store](#).
 
-![alt tag](http://placecorgi.com/1200/650)
-
+Check it out live at [blaze.store](https://#).
+<p align="center">
+<img src="https://user-images.githubusercontent.com/84287747/201928326-1f040605-4b4f-4e5d-9231-5cb7f061e19d.png" alt="drawing" style="width:500px;"/>
+  </p>
 ## How It's Made:
 
 **Tech used:** HTML, CSS, JavaScript, React, Node.js, Express, MongoDB
