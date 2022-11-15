@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../assets/images/icons/icon small.svg";
+import Logo from "../../assets/images/icons/iconTrans.png";
 import Button from "../UI/Button";
 import SearchBar from "../UI/SearchBar";
 import NavLinks from "./NavLinks";
@@ -7,7 +7,7 @@ export default function Navbar() {
 	return (
 		<div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary">
 			{/* Logo */}
-			<div className="w-6">
+			<div className="w-9">
 				<a href="">
 					<img src={Logo} alt="" />
 				</a>
