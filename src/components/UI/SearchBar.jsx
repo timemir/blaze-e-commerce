@@ -3,10 +3,7 @@ import { IoSearchOutline } from "react-icons/io5";
 
 export default function SearchBar() {
     return (
-        <div
-            className={
-                "flex justify-center items-center rounded-xl py-1px pr-13px pl-1  text-blazePrimary200 bg-white "
-            }>
+        <div className="flex justify-center items-center rounded-xl py-1px pr-13px pl-1  text-blazePrimary200 bg-white ">
             <IoSearchOutline color="#B4B9C1" />
             <input
                 type="text"
