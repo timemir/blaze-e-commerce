@@ -8,7 +8,7 @@ export default function NavLinks() {
                 Home
             </a>
             <a href="" className="transition hover:text-blazeCTA">
-                <DropdownButton label={"Shop"} />
+                <DropdownButton label="Shop" />
             </a>
             <a href="" className="transition hover:text-blazeCTA">
                 Support

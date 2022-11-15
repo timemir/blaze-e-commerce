@@ -3,12 +3,13 @@ import Logo from "../../assets/images/icons/iconTrans.png";
 import Button from "../UI/Button";
 import SearchBar from "../UI/SearchBar";
 import NavLinks from "./NavLinks";
+
 export default function Navbar() {
     return (
         <div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary">
             {/* Logo */}
             <div className="w-9">
-                <a href="">
+                <a href="../../../index.html">
                     <img src={Logo} alt="" />
                 </a>
             </div>
@@ -18,7 +19,7 @@ export default function Navbar() {
             <div className="flex justify-center items-center space-x-2">
                 <SearchBar />
                 <Button label="Register" />
-                <Button label="Login" outline={true} />
+                <Button label="Login" outline />
             </div>
         </div>
     );

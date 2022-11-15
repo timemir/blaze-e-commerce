@@ -1,0 +1,28 @@
+{
+    "extends": [
+        "airbnb",
+        "prettier",
+        "plugin:node/recommended",
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": ["prettier"],
+    "rules": {
+        "node/no-missing-import": "off",
+        "react/prop-types": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "tabWidth": 4,
+                "endOfLine": "auto"
+            }
+        ],
+        "no-unused-vars": "warn",
+        "no-console": "off",
+        "no-plusplus": "off",
+        "func-names": "off",
+        "no-process-exit": "off",
+        "object-shorthand": "off",
+        "class-methods-use-this": "off"
+    }
+}
