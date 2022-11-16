@@ -1,15 +1,28 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom/";
 import { describe, it } from "vitest";
-import App from "./App";
+
+import { App, WrappedApp } from "./App";
 
 describe("App", () => {
     it("renders the NavBar", () => {
         // ARRANGE
-        render(<App />);
+        render(<WrappedApp />);
         // ACT (Fill out an input for example)
         const linkElement = screen.getByText(/Shop/i);
         // EXPECT
         expect(linkElement).toBeInTheDocument();
+    });
+    it("renders NotFound page if the path is invalid", () => {
+        render(
+            <MemoryRouter initialEntries={["/invalid-path"]}>
+                <App />
+            </MemoryRouter>
+        );
+        const linkElement = screen.getByRole("heading", {
+            level: 1,
+        });
+        expect(linkElement).toHaveTextContent("Not Found");
     });
 });
 // ALWAYS TEST WITH getByRole first and then

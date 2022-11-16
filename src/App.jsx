@@ -1,12 +1,21 @@
+import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
-function App() {
+export function App() {
     return (
-        <div className="App container mx-auto bg-blazePrimary200">
-            <Navbar />
-        </div>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
 }
 
-export default App;
+export function WrappedApp() {
+    return (
+        <HashRouter>
+            <App />
+        </HashRouter>
+    );
+}
