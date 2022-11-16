@@ -1,9 +1,8 @@
 {
     "extends": [
         "airbnb",
+        "airbnb/hooks",
         "prettier",
-        "plugin:node/recommended",
-        "eslint:recommended",
         "plugin:react/recommended"
     ],
     "plugins": ["prettier"],
@@ -23,6 +22,15 @@
         "func-names": "off",
         "no-process-exit": "off",
         "object-shorthand": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true,
+                "optionalDependencies": true,
+                "peerDependencies": true
+            }
+        ]
     }
 }
