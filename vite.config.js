@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /// <reference types ="vite/client" />
 /// <reference types ="vitest" />
 
@@ -10,6 +11,6 @@ export default defineConfig({
     test: {
         globals: true,
         environment: "jsdom",
-        setupFiles: ["./src/setup.js"],
+        setupFiles: ["./src/setupTests.js"],
     },
 });
