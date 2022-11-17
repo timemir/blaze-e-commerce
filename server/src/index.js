@@ -2,12 +2,16 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 // Models
 const ItemModel = require("./models/Item");
 const CategoryModel = require("./models/Category");
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
+
+// Allow requests from any origin (for now TODO: restrict this later)
+app.use(cors());
 // Some middleware to parse the body of requests as JSON
 app.use(express.json());
 
@@ -17,9 +21,10 @@ const PORT = 3000;
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-// In the future this needs to be the HTML file that will be served to the client
-app.get("/category1", (req, res) => {
-    res.send("category1");
+// Sends all the available categories to the client
+app.get("/all-categories", async (req, res) => {
+    const categories = await CategoryModel.find();
+    res.json(categories);
 });
 app.get("/category2", (req, res) => {
     res.send("category2");
