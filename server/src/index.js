@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 // Models
@@ -39,13 +41,10 @@ app.post("/create-category", async (req, res) => {
 
 // Connect to MongoDB
 mongoose
-    .connect(
-        "mongodb+srv://blazeAdmin:zUYghnfT4EHGYILZ@blaze.lfsl1gv.mongodb.net/?retryWrites=true&w=majority",
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => {
         console.log("Connected to MongoDB");
         app.listen(PORT, () => {
