@@ -3,6 +3,11 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 export default function Item({ item }) {
     const [isHearted, setIsHearted] = useState(false);
+    function heartClickHandler() {
+        // TODO: Add to wishlist in backend
+        setIsHearted(!isHearted);
+    }
+
     return (
         <div
             key={item.id}
@@ -13,27 +18,27 @@ export default function Item({ item }) {
                     {isHearted ? (
                         <AiFillHeart
                             className="text-3xl text-red-600"
-                            onClick={() => setIsHearted(false)}
+                            onClick={heartClickHandler}
                         />
                     ) : (
                         <AiOutlineHeart
                             className="text-3xl"
-                            onClick={() => setIsHearted(true)}
+                            onClick={heartClickHandler}
                         />
                     )}
                 </div>
-                <div className="flex justify-center items-center h-10 w-16 rounded-r-lg absolute bottom-2 left-0 bg-red-500">
+                <div
+                    className={`flex justify-center items-center h-10 w-16 rounded-r-lg absolute bottom-2 left-0 ${
+                        item.sale ? "bg-red-500 " : "bg-transparent"
+                    }`}
+                >
                     {item.sale ? (
                         <p className="text-2xl text-white font-bold">Deal</p>
                     ) : (
                         <p />
                     )}
                 </div>
-                <img
-                    className="rounded-lg"
-                    src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80"
-                    alt=""
-                />
+                <img className="rounded-lg" src={item.image} alt="" />
             </div>
             <h2 className="text-blazePimary opacity-70">{item.brand}</h2>
             <h2 className="text-blazePimary text-lg truncate ">{item.name}</h2>
