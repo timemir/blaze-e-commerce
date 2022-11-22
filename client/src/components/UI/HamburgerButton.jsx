@@ -16,10 +16,7 @@ export default function HamburgerButton() {
             {isOpen ? (
                 <>
                     <BsXLg onClick={clickHandler} className="text-2xl" />
-                    <div
-                        className="bg-blazePimary absolute top-15 right-2 opacity-90 rounded-lg z-50"
-                        onMouseOut={clickHandler}
-                    >
+                    <div className="bg-blazePimary absolute top-15 right-2 opacity-90 rounded-lg z-50">
                         <NavLinks col />
                     </div>
                 </>

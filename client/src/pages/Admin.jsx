@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
+import AdminDashboard from "../components/Admin/AdminDashboard";
 import LoginForm from "../components/UI/LoginForm";
 
 export default function Admin() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     function loginHandler(event) {
         setIsLoggedIn(event);
@@ -11,9 +11,8 @@ export default function Admin() {
 
     return (
         <>
-            {/* Create an admin login form in the middle of the page */}
             {isLoggedIn ? (
-                <h1>LoggedIn</h1>
+                <AdminDashboard />
             ) : (
                 <LoginForm onPress={loginHandler} />
             )}
