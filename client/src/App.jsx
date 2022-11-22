@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 
 export function App() {
     return (
-        <div className="container relative mx-auto bg-blazePrimary200">
+        <div className="container relative mx-auto bg-white pb-10">
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />

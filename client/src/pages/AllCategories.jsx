@@ -4,7 +4,7 @@ import ItemList from "../components/Shop/ItemList";
 export default function AllCategories() {
     return (
         <div>
-            <ItemList />
+            <ItemList category="All Categories" />
         </div>
     );
 }
