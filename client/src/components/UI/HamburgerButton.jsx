@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+// no onBlur, because it iterferes with the click event on the dropdown menu
 import React, { useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -14,7 +16,10 @@ export default function HamburgerButton() {
             {isOpen ? (
                 <>
                     <BsXLg onClick={clickHandler} className="text-2xl" />
-                    <div className="bg-blazePimary absolute top-15 right-2 opacity-90 rounded-lg">
+                    <div
+                        className="bg-blazePimary absolute top-15 right-2 opacity-90 rounded-lg z-50"
+                        onMouseOut={clickHandler}
+                    >
                         <NavLinks col />
                     </div>
                 </>

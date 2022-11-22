@@ -11,7 +11,7 @@ export default function DropdownButton({ label }) {
 
     return (
         <>
-            <div className="flex items-center relative" />
+            <div className="flex items-center relative z-50" />
             <div className="relative inline-block text-left">
                 <div onMouseOver={toggleHandler} onFocus={toggleHandler}>
                     <button
