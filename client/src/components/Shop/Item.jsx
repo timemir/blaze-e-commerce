@@ -10,8 +10,8 @@ export default function Item({ item }) {
     }
 
     return (
-        <div key={item.id} className="group relative">
-            <div className="relative min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+        <div key={item.id} className="relative">
+            <div className="relative min-h-80 aspect-auto w-full overflow-hidden rounded-md bg-gray-200 hover:opacity-75 lg:aspect-none lg:h-80">
                 <div className="flex z-50 justify-center items-center h-10 w-16 rounded-l-lg absolute top-2 right-0 bg-blazePrimary100">
                     {isHearted ? (
                         <AiFillHeart

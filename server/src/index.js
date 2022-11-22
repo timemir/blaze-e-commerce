@@ -19,11 +19,14 @@ const PORT = 3000;
 //________________________________________________________________________
 // GETS __________________________________________________________________
 app.get("/", (req, res) => {
+    // Send the message "Hello World!" to the client
     res.send("Hello World!");
 });
-// Sends all the available categories to the client
 app.get("/all-categories", async (req, res) => {
+    // Get all categories from the database
     const categories = await CategoryModel.find();
+
+    // Send the categories as a JSON response
     res.json(categories);
 });
 app.get("/category2", (req, res) => {
@@ -33,29 +36,38 @@ app.get("/category2", (req, res) => {
 // POSTS _________________________________________________________________
 // post a new category to the database
 app.post("/create-category", async (req, res) => {
-    // create a new category
+    // Create a new category
     const newCategory = new CategoryModel({
         name: req.body.name,
         items: [],
     });
-    // save the new category to the database
+    // Save the new category to the database
     await newCategory.save();
+    // Send a confirmation message
     res.send("category created");
 });
 // _______________________________________________________________________
 
 // Connect to MongoDB
-mongoose
-    .connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => {
-        console.log("Connected to MongoDB");
-        app.listen(PORT, () => {
-            console.log(`Listening on port ${PORT}`);
+const connectToDb = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
-    })
-    .catch((err) => {
-        console.log(err);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const startServer = async () => {
+    await connectToDb();
+    app.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
     });
+};
+
+startServer().catch((err) => {
+    console.log(err);
+});
