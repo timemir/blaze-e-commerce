@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
+// TODO: Make this component more dynamic(smaller) for larger screens
 export default function Item({ item }) {
     const [isHearted, setIsHearted] = useState(false);
     function heartClickHandler() {

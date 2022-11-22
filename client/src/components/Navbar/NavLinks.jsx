@@ -26,7 +26,7 @@ export default function NavLinks({ col = false }) {
                     <Link to="/">Home</Link>
                 </div>
                 <div className="text-2xl transition hover:text-blazeCTA">
-                    <DropdownButton label="Shop" linkTo="/all-categories" />
+                    <DropdownButton label="Shop" />
                 </div>
                 <div className="text-2xl transition hover:text-blazeCTA">
                     <Link to="/">Support</Link>
