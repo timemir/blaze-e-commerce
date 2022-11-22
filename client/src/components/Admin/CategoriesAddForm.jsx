@@ -3,22 +3,39 @@ import React, { useState } from "react";
 export default function CategoriesAddForm() {
     const [added, setAdded] = useState(false);
     const [hint, setHint] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [category, setCategory] = useState("");
 
-    function addHandler() {
+    function addHandler(e) {
+        e.preventDefault();
         if (category.length === 0) {
             setHint(true);
             return;
         }
         setHint(false);
-        // TODO: Create Category inside the database
-        // Fetch API, catch errors, etc.
-
-        setCategory("");
-        setAdded(true);
-        setTimeout(() => {
-            setAdded(false);
-        }, 2000);
+        fetch("http://localhost:3000/create-category", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: category,
+            }),
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    setAdded(true);
+                    setCategory("");
+                    setTimeout(() => {
+                        setAdded(false);
+                    }, 2000);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setHint(true);
+                setErrorMessage(`Error: ${err.message}!`);
+            });
     }
     function changeHandler(event) {
         setCategory(event.target.value);
@@ -52,7 +69,7 @@ export default function CategoriesAddForm() {
             )}
             {hint && (
                 <span className="text-red-600 text-center">
-                    Please enter a category name!
+                    {errorMessage || "Please enter a category name!"}
                 </span>
             )}
         </div>
