@@ -6,9 +6,15 @@ import CategoriesAddForm from "../components/Admin/CategoriesAddForm";
 
 export default function AdminCategories() {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-
+    const [message, setMessage] = useState({ type: "", text: "" });
     function toggleSidebar() {
         setSidebarIsOpen(!sidebarIsOpen);
+    }
+    function getMessage(msg) {
+        setMessage(msg);
+        setTimeout(() => {
+            setMessage({ type: "", text: "" });
+        }, 3000);
     }
 
     return (
@@ -89,10 +95,22 @@ export default function AdminCategories() {
                                 <MdSpaceDashboard className="text-2xl text-blazeCTA" />
                             </button>
                         </div>
+                        {message.type !== "" && (
+                            <div
+                                id="topMessageBar"
+                                className={`w-full mx-2 px-4 rounded-lg ${
+                                    message.type === "Error"
+                                        ? "bg-red-500 text-white"
+                                        : "bg-green-500 text-white"
+                                } `}
+                            >
+                                {`${message.type}: ${message.text}`}
+                            </div>
+                        )}
                     </header>
                     {/* MAIN CONTENT  */}
-                    <div className="grid grid-cols-2 gap-4 p-4">
-                        <CategoriesAddForm />
+                    <div className="flex flex-col space-y-5 p-4 md:grid md:grid-cols-2 md:gap-4">
+                        <CategoriesAddForm getMessage={getMessage} />
                         <div>All Current Categories</div>
                     </div>
                 </div>

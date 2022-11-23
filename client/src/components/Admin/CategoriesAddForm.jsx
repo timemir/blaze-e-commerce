@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-export default function CategoriesAddForm() {
-    const [added, setAdded] = useState(false);
-    const [hint, setHint] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
+export default function CategoriesAddForm({ getMessage }) {
     const [category, setCategory] = useState("");
 
+    function messageHandler(type, text) {
+        const messageObj = { type, text };
+        getMessage(messageObj);
+    }
     function addHandler(e) {
         e.preventDefault();
         if (category.length === 0) {
-            setHint(true);
+            messageHandler("Error", "Please enter a category.");
             return;
         }
-        setHint(false);
         fetch("http://localhost:3000/create-category", {
             method: "POST",
             headers: {
@@ -24,17 +24,13 @@ export default function CategoriesAddForm() {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    setAdded(true);
                     setCategory("");
-                    setTimeout(() => {
-                        setAdded(false);
-                    }, 2000);
+                    messageHandler("Success", "Category added successfully.");
                 }
             })
             .catch((err) => {
                 console.log(err);
-                setHint(true);
-                setErrorMessage(`Error: ${err.message}!`);
+                messageHandler("Error", err.message);
             });
     }
     function changeHandler(event) {
@@ -62,16 +58,6 @@ export default function CategoriesAddForm() {
                     Add
                 </button>
             </form>
-            {added && (
-                <span className="text-green-600 text-center">
-                    Added a new category!
-                </span>
-            )}
-            {hint && (
-                <span className="text-red-600 text-center">
-                    {errorMessage || "Please enter a category name!"}
-                </span>
-            )}
         </div>
     );
 }
