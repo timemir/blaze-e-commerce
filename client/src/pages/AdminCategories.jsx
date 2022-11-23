@@ -18,7 +18,7 @@ export default function AdminCategories() {
     }
 
     return (
-        <div className="bg-gray-100  h-screen overflow-hidden relative">
+        <div className="  h-screen overflow-hidden relative">
             <div className="flex items-start justify-between">
                 <div
                     className={`h-screen ${
