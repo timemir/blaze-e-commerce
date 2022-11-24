@@ -74,11 +74,11 @@ export default function Home() {
             </div>
             <div
                 id="footer"
-                className="flex flex-col bg-blazePimary rounded-t-lg text-[#B4B9C2] w-full justify-between  pt-10 pb-16"
+                className="flex flex-col bg-blazePimary rounded-t-lg text-[#B4B9C2] w-full justify-between  pt-10 pb-8"
             >
                 <div
                     id="columns"
-                    className="flex flex-wrap md:flex-nowrap md:flex-row md:space-x-4  gap-11 md:gap-0 mx-2 md:mx-0 md:px-6 pb-12 border-b-2 border-gray-400"
+                    className="flex flex-wrap md:flex-nowrap md:flex-row md:space-x-4  gap-11 md:gap-0 mx-2  md:mx-6  pb-20 border-b-2 border-gray-400"
                 >
                     <div
                         id="shop"
@@ -203,20 +203,20 @@ export default function Home() {
                     </div>
                     <div
                         id="newsletter"
-                        className="flex flex-col w-full items-start"
+                        className="flex flex-col w-full items-center"
                     >
                         <p className="text-center md:text-left">
                             The latest deals to your inbox weekly.
                         </p>
-                        <form className="flex">
+                        <form className="flex w-full md:flex-col lg:flex-row">
                             <input
                                 type="email"
                                 placeholder="Your email address"
-                                className=" px-2 rounded-lg"
+                                className="px-2 py-2 rounded-lg w-full"
                             />
                             <button
                                 type="submit"
-                                className="bg-blazeCTA rounded-lg text-white opacity-100 px-4 ml-2"
+                                className="bg-blazeCTA rounded-lg text-white opacity-100 px-4 ml-2 md:ml-0 md:mt-2 lg:mt-0 lg:ml-2"
                                 onClick={newsletterHandler}
                             >
                                 Subscribe
@@ -224,7 +224,7 @@ export default function Home() {
                         </form>
                     </div>
                 </div>
-                <div id="copyright" className="mt-10">
+                <div id="copyright" className="mt-10 mx-2 md:mx-6">
                     <p>Copyright © 2022 Tim Emir</p>
                 </div>
             </div>
