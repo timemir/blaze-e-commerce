@@ -1,5 +1,7 @@
 import React from "react";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import ItemCard from "../components/UI/ItemCard";
 
 export default function Home() {
     function newsletterHandler(event) {
@@ -8,13 +10,15 @@ export default function Home() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-24">
             <div
                 id="hero"
-                className="flex flex-col items-center space-y-8 justify-center h-screen px-6 bg-[url(https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80)]"
+                className="flex flex-col items-center space-y-8 justify-center h-screen px-6  bg-hero-bg bg-cover bg-center bg-fixed bg-blend-difference bg-blazePrimary800"
             >
-                <h1 className="font-bold text-3xl">New arrivals are here</h1>
-                <p className="text-md text-center md:max-w-3xl">
+                <h1 className="font-bold text-4xl md:text-6xl text-white">
+                    New arrivals are here
+                </h1>
+                <p className="text-md text-center md:max-w-3xl text-white">
                     The new arrivals have, well, newly arrived. Check out the
                     latest options from our winter small-batch release while
                     they are still in stock.
@@ -25,6 +29,48 @@ export default function Home() {
                 >
                     Shop New Arrivals
                 </button>
+            </div>
+            <div id="main" className="mx-4">
+                <div id="all-categories">
+                    <div id="heading" className="flex justify-between mb-4">
+                        <h2 className="text-xl md:text-2xl font-bold">
+                            Shop by Category
+                        </h2>
+                        <div className="flex items-center">
+                            <button
+                                type="button"
+                                className="text-blazeCTA font-semibold text-md md:text-lg"
+                            >
+                                Browse all categories
+                            </button>
+                            <AiOutlineArrowRight className="text-blazeCTA ml-1" />
+                        </div>
+                    </div>
+                    <div className="flex flex-col space-y-8 md:space-y-0 justify-between items-center flex-wrap md:flex-row">
+                        <ItemCard
+                            title="New Arrivals"
+                            imageUrl="https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                        />
+                        <ItemCard
+                            title="Productivity"
+                            imageUrl="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&q=80"
+                        />
+                        <ItemCard
+                            title="Workspace"
+                            imageUrl="https://images.unsplash.com/photo-1564466809058-bf4114d55352?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80"
+                        />
+                        <ItemCard
+                            title="Accessories"
+                            className="hidden lg:flex"
+                            imageUrl="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2960&q=80"
+                        />
+                        <ItemCard
+                            title="Sale"
+                            className="hidden xl:flex"
+                            imageUrl="https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=808&q=80"
+                        />
+                    </div>
+                </div>
             </div>
             <div
                 id="footer"
@@ -155,16 +201,18 @@ export default function Home() {
                             </li>
                         </ul>
                     </div>
-                    <div id="newsletter" className="flex flex-col items-start">
+                    <div
+                        id="newsletter"
+                        className="flex flex-col w-full items-start"
+                    >
                         <p className="text-center md:text-left">
-                            The latest deals and savings, sent to your inbox
-                            weekly.
+                            The latest deals to your inbox weekly.
                         </p>
-                        <form className="flex p-4">
+                        <form className="flex">
                             <input
                                 type="email"
                                 placeholder="Your email address"
-                                className="flex-1 px-2 rounded-lg"
+                                className=" px-2 rounded-lg"
                             />
                             <button
                                 type="submit"
