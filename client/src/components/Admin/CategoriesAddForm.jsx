@@ -13,7 +13,7 @@ export default function CategoriesAddForm({ getMessage }) {
             messageHandler("Error", "Please enter a category.");
             return;
         }
-        fetch("http://localhost:3000/create-category", {
+        fetch("http://localhost:3000/category", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

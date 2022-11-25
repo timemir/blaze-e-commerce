@@ -3,9 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-// Models
-const ItemModel = require("./models/Item");
-const CategoryModel = require("./models/Category");
+const {
+    getAllCategoriesController,
+    getCategoryController,
+    postCategoryController,
+    deleteCategoryController,
+} = require("./controller/categoryController");
+const { getHomeController } = require("./controller/homeController");
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
@@ -18,47 +22,16 @@ app.use(express.json());
 const PORT = 3000;
 //________________________________________________________________________
 // GETS __________________________________________________________________
-app.get("/", (req, res) => {
-    // Send the message "Hello World!" to the client
-    res.send("Hello World!");
-});
-app.get("/all-categories", async (req, res) => {
-    // Get all categories from the database
-    const categories = await CategoryModel.find();
-
-    // Send the categories as a JSON response
-    res.json(categories);
-});
-app.get("/category2", (req, res) => {
-    res.send("category2");
-});
+app.get("/", getHomeController);
+app.get("/all-categories", getAllCategoriesController);
+app.get("/category/:categoryId", getCategoryController);
 // _______________________________________________________________________
 // POSTS _________________________________________________________________
 // post a new category to the database
-app.post("/create-category", async (req, res) => {
-    // Create a new category
-    const newCategory = new CategoryModel({
-        title: req.body.title,
-        link: req.body.link,
-    });
-    // Save the new category to the database
-    await newCategory.save();
-    // Send a confirmation message
-    res.send("category created");
-});
+app.post("/category", postCategoryController);
 // _______________________________________________________________________
 // DELETES _______________________________________________________________
-app.delete("/category/:categoryId", async (req, res) => {
-    // Get the id of the category to delete
-    const categoryId = req.params.categoryId;
-    // Delete the category from the database
-    const deletedCategory = await CategoryModel.findByIdAndDelete(categoryId);
-    // Send a confirmation message
-    res.json({
-        message: "category deleted",
-        deletedCategory,
-    });
-});
+app.delete("/category/:categoryId", deleteCategoryController);
 
 // _______________________________________________________________________
 
