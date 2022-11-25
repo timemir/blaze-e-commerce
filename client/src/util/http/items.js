@@ -36,3 +36,13 @@ export async function fetchItem(itemId) {
         };
     }
 }
+
+export async function deleteItem(itemId) {
+    try {
+        const response = await fetch(`${BASE_URL}/item/${itemId}`, {
+            method: "DELETE",
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}

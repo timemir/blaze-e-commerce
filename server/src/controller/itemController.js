@@ -41,9 +41,26 @@ async function postItemToCategoryController(req, res) {
         where: `inside category ${category.name}`,
     });
 }
-
+async function deleteItemController(req, res) {
+    // Delete an item
+    const itemId = req.params.itemId;
+    const item = await ItemModel.findById(itemId);
+    const category = await CategoryModel.findById(item.category);
+    // Remove the item from the category
+    category.items = category.items.filter((item) => item != itemId);
+    await category.save();
+    // Delete the item from the database
+    await ItemModel.findById(itemId).deleteOne();
+    // Send a confirmation message
+    res.json({
+        message: "item deleted",
+        where: `inside category ${category.name}`,
+    });
+}
+//________________________________________________________________________
 module.exports = {
     getItemsFromCategoryController,
     postItemToCategoryController,
     getItemController,
+    deleteItemController,
 };

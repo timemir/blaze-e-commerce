@@ -14,6 +14,7 @@ const {
     postItemToCategoryController,
     getItemsFromCategoryController,
     getItemController,
+    deleteItemController,
 } = require("./controller/itemController");
 // --------------------
 // SETUP _________________________________________________________________
@@ -41,6 +42,7 @@ app.post("/category/:categoryId/item", postItemToCategoryController);
 // _______________________________________________________________________
 // DELETES _______________________________________________________________
 app.delete("/category/:categoryId", deleteCategoryController);
+app.delete("/item/:itemId", deleteItemController);
 
 // _______________________________________________________________________
 

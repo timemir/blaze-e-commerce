@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { deleteItem } from "../../util/http/items";
 import Button from "../UI/General/Button";
 
 export default function CategoriesListItem({ item, updateParent, categoryId }) {
@@ -10,14 +11,16 @@ export default function CategoriesListItem({ item, updateParent, categoryId }) {
     }
 
     function deleteHandler() {
-        // deleteItem(item._id);
+        deleteItem(item._id);
         updateParent(item._id);
     }
     return (
-        <Link to={`/admin-categories/${categoryId}/item/${item._id}`}>
+        <>
             <div className="flex items-center bg-blazePimary text-white transition hover:text-blazeCTA hover:opacity-90 rounded-lg p-4">
-                <p className="mr-3">{item.brand}</p>
-                <p>{item.name}</p>
+                <Link to={`/admin-categories/${categoryId}/item/${item._id}`}>
+                    <p className="mr-3">{item.brand}</p>
+                    <p>{item.name}</p>
+                </Link>
                 <BsTrash
                     onClick={confirmHandler}
                     className=" ml-auto text-white transition hover:text-red-700"
@@ -45,6 +48,6 @@ export default function CategoriesListItem({ item, updateParent, categoryId }) {
                     </Button>
                 </div>
             </div>
-        </Link>
+        </>
     );
 }
