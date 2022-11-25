@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import { deleteCategory } from "../../util/http/categories";
 import Button from "../UI/General/Button";
 
@@ -15,7 +16,7 @@ export default function CategoriesListItem({ category, updateParent }) {
         updateParent(category._id);
     }
     return (
-        <>
+        <Link to={`/admin-categories/${category._id}`}>
             <div className="flex items-center bg-blazePimary text-white transition hover:text-blazeCTA hover:opacity-90 rounded-lg p-4">
                 <p>{category.title}</p>
                 <BsTrash
@@ -45,6 +46,6 @@ export default function CategoriesListItem({ category, updateParent }) {
                     </Button>
                 </div>
             </div>
-        </>
+        </Link>
     );
 }
