@@ -10,6 +10,11 @@ const {
     deleteCategoryController,
 } = require("./controller/categoryController");
 const { getHomeController } = require("./controller/homeController");
+const {
+    postItemToCategoryController,
+    getItemsFromCategoryController,
+    getItemController,
+} = require("./controller/itemController");
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
@@ -25,10 +30,14 @@ const PORT = 3000;
 app.get("/", getHomeController);
 app.get("/all-categories", getAllCategoriesController);
 app.get("/category/:categoryId", getCategoryController);
+app.get("/category/:categoryId/item", getItemsFromCategoryController);
+app.get("/item/:itemId", getItemController);
 // _______________________________________________________________________
 // POSTS _________________________________________________________________
 // post a new category to the database
 app.post("/category", postCategoryController);
+
+app.post("/category/:categoryId/item", postItemToCategoryController);
 // _______________________________________________________________________
 // DELETES _______________________________________________________________
 app.delete("/category/:categoryId", deleteCategoryController);

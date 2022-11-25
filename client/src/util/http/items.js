@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { BASE_URL } from "./config";
-// Function to fetch all categories
-export async function fetchCategories() {
+
+// Function to fetch all items
+export async function fetchItemsFromCategory(categoryId) {
     try {
-        const response = await fetch(`${BASE_URL}/all-categories`, {
-            method: "GET",
-        });
-        // const data = await response.json();
+        const response = await fetch(
+            `${BASE_URL}/category/${categoryId}/item`,
+            {
+                method: "GET",
+            }
+        );
         const data = await response.json();
         return data;
     } catch (error) {
@@ -16,10 +19,9 @@ export async function fetchCategories() {
         ];
     }
 }
-
-export async function fetchCategory(categoryId) {
+export async function fetchItem(itemId) {
     try {
-        const response = await fetch(`${BASE_URL}/category/${categoryId}`, {
+        const response = await fetch(`${BASE_URL}/item/${itemId}`, {
             method: "GET",
         });
         const data = await response.json();
@@ -32,15 +34,5 @@ export async function fetchCategory(categoryId) {
             imageUrl: "",
             link: "/",
         };
-    }
-}
-
-export async function deleteCategory(categoryId) {
-    try {
-        const response = await fetch(`${BASE_URL}/category/${categoryId}`, {
-            method: "DELETE",
-        });
-    } catch (error) {
-        console.log(error);
     }
 }

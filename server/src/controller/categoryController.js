@@ -12,6 +12,8 @@ async function getAllCategoriesController(req, res) {
 
 async function getCategoryController(req, res) {
     const categoryId = req.params.categoryId;
+    const category = await CategoryModel.findById(categoryId);
+    res.json(category);
 }
 
 //________________________________________________________________________

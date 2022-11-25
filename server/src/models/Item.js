@@ -6,9 +6,9 @@ const ItemSchema = new mongoose.Schema({
     name: String,
     price: Number,
     description: String,
-    image: String,
-    size: String,
-    color: String,
+    images: [{ url: String, alt: String }], // {url: String, alt: String}
+    size: [{ name: String, inStock: Boolean }],
+    color: [{ name: String, class: String, selectedClass: String }],
     available: Boolean,
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });

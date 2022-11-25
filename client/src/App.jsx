@@ -6,6 +6,7 @@ import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminCategories from "./pages/admin/AdminCategories";
 import AdminCategoryDetails from "./pages/admin/AdminCategoryDetails";
 import AdminComms from "./pages/admin/AdminComms";
+import AdminItemDetails from "./pages/admin/AdminItemDetails";
 import Accessories from "./pages/categories/Accessories";
 import AllCategories from "./pages/categories/AllCategories";
 import NewArrivals from "./pages/categories/NewArrivals";
@@ -29,6 +30,10 @@ export function App() {
                 <Route
                     path="/admin-categories/:categoryId"
                     element={<AdminCategoryDetails />}
+                />
+                <Route
+                    path="/admin-categories/:categoryId/item/:itemId"
+                    element={<AdminItemDetails />}
                 />
                 <Route path="/new-arrivals" element={<NewArrivals />} />
                 <Route path="/productivity" element={<Productivity />} />
