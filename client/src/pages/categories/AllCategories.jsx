@@ -1,5 +1,5 @@
 import React from "react";
-import ItemList from "../components/Shop/ItemList";
+import ItemList from "../../components/Shop/ItemList";
 
 export default function AllCategories() {
     return (

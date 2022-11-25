@@ -1,11 +1,16 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import Admin from "./pages/Admin";
-import AdminAnalytics from "./pages/AdminAnalytics";
-import AdminCategories from "./pages/AdminCategories";
-import AdminComms from "./pages/AdminComms";
-import AllCategories from "./pages/AllCategories";
+import Admin from "./pages/admin/Admin";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminCategories from "./pages/admin/AdminCategories";
+import AdminComms from "./pages/admin/AdminComms";
+import Accessories from "./pages/categories/Accessories";
+import AllCategories from "./pages/categories/AllCategories";
+import NewArrivals from "./pages/categories/NewArrivals";
+import Productivity from "./pages/categories/Productivity";
+import Sale from "./pages/categories/Sale";
+import Workspace from "./pages/categories/Workspace";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
@@ -20,6 +25,11 @@ export function App() {
                 <Route path="/admin-analytics" element={<AdminAnalytics />} />
                 <Route path="/admin-comms" element={<AdminComms />} />
                 <Route path="/all-categories" element={<AllCategories />} />
+                <Route path="/new-arrivals" element={<NewArrivals />} />
+                <Route path="/productivity" element={<Productivity />} />
+                <Route path="/workspace" element={<Workspace />} />
+                <Route path="/accessories" element={<Accessories />} />
+                <Route path="/sale" element={<Sale />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </div>

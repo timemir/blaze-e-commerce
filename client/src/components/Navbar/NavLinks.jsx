@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DropdownButton from "../UI/DropdownButton";
+import DropdownButton from "../UI/General/DropdownButton";
 
 export default function NavLinks({ col = false }) {
     return (

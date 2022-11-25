@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoAnalytics, IoChatbubbles, IoCompass, IoHome } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
-import CategoriesAddForm from "../components/Admin/CategoriesAddForm";
+import CategoriesAddForm from "../../components/Admin/CategoriesAddForm";
 
 export default function AdminCategories() {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false);

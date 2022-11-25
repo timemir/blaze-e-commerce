@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import NavLinks from "../Navbar/NavLinks";
+import NavLinks from "../../Navbar/NavLinks";
 
 export default function HamburgerButton() {
     const [isOpen, setIsOpen] = useState(false);

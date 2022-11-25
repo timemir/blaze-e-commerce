@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AdminDashboard from "../components/Admin/AdminDashboard";
-import LoginForm from "../components/UI/LoginForm";
+import AdminDashboard from "../../components/Admin/AdminDashboard";
+import LoginForm from "../../components/UI/General/LoginForm";
 
 export default function Admin() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
