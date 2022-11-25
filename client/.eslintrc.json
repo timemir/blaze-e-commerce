@@ -24,6 +24,7 @@
         "object-shorthand": "off",
         "class-methods-use-this": "off",
         "react/react-in-jsx-scope": "off",
+        "no-underscore-dangle": "off",
         "react/jsx-no-bind": [
             "error",
             {

@@ -19,7 +19,7 @@ export default function CategoriesAddForm({ getMessage }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: category,
+                title: category,
             }),
         })
             .then((res) => {

@@ -38,14 +38,28 @@ app.get("/category2", (req, res) => {
 app.post("/create-category", async (req, res) => {
     // Create a new category
     const newCategory = new CategoryModel({
-        name: req.body.name,
-        items: [],
+        title: req.body.title,
+        link: req.body.link,
     });
     // Save the new category to the database
     await newCategory.save();
     // Send a confirmation message
     res.send("category created");
 });
+// _______________________________________________________________________
+// DELETES _______________________________________________________________
+app.delete("/category/:categoryId", async (req, res) => {
+    // Get the id of the category to delete
+    const categoryId = req.params.categoryId;
+    // Delete the category from the database
+    const deletedCategory = await CategoryModel.findByIdAndDelete(categoryId);
+    // Send a confirmation message
+    res.json({
+        message: "category deleted",
+        deletedCategory,
+    });
+});
+
 // _______________________________________________________________________
 
 // Connect to MongoDB

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
 
-export default function ItemList({ category }) {
+export default function ItemList({ category, query }) {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        // TODO: Fetch items from backend
+        // TODO: Fetch items from backend with query
         setItems([
             {
                 id: 1,

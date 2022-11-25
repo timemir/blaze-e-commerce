@@ -3,6 +3,7 @@ import { IoAnalytics, IoChatbubbles, IoCompass, IoHome } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import CategoriesAddForm from "../../components/Admin/CategoriesAddForm";
+import CategoriesList from "../../components/Admin/CategoriesList";
 
 export default function AdminCategories() {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
@@ -109,9 +110,16 @@ export default function AdminCategories() {
                         )}
                     </header>
                     {/* MAIN CONTENT  */}
-                    <div className="flex flex-col space-y-5 p-4 md:grid md:grid-cols-2 md:gap-4">
-                        <CategoriesAddForm getMessage={getMessage} />
-                        <div>All Current Categories</div>
+                    <div className="flex flex-col space-y-5 md:space-y-0 p-4 md:grid md:grid-cols-2 md:gap-4">
+                        <div>
+                            <CategoriesAddForm getMessage={getMessage} />
+                        </div>
+                        <div>
+                            <h2>All Current Categories</h2>
+                            <div>
+                                <CategoriesList />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

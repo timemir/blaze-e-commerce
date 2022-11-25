@@ -18,11 +18,12 @@ export default function ItemCardList({ heading, itemCards }) {
                 </div>
             </div>
             <div className="flex flex-col space-y-8 md:space-y-0 justify-between items-center flex-wrap md:flex-row">
-                {itemCards.map((itemCard) => {
-                    if (itemCard.id === 4) {
+                {itemCards.map((itemCard, i) => {
+                    console.log(itemCard._id);
+                    if (i === 3) {
                         return (
                             <ItemCard
-                                key={itemCard.id}
+                                key={itemCard._id}
                                 title={itemCard.title}
                                 imageUrl={itemCard.imageUrl}
                                 link={itemCard.link}
@@ -30,10 +31,10 @@ export default function ItemCardList({ heading, itemCards }) {
                             />
                         );
                     }
-                    if (itemCard.id === 5) {
+                    if (i === 4) {
                         return (
                             <ItemCard
-                                key={itemCard.id}
+                                key={itemCard._id}
                                 title={itemCard.title}
                                 imageUrl={itemCard.imageUrl}
                                 link={itemCard.link}
@@ -41,9 +42,12 @@ export default function ItemCardList({ heading, itemCards }) {
                             />
                         );
                     }
+                    if (i > 4) {
+                        return null;
+                    }
                     return (
                         <ItemCard
-                            key={itemCard.id}
+                            key={itemCard._id}
                             title={itemCard.title}
                             imageUrl={itemCard.imageUrl}
                             link={itemCard.link}
