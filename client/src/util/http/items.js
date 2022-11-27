@@ -5,7 +5,7 @@ import { BASE_URL } from "./config";
 export async function fetchItemsFromCategory(categoryId) {
     try {
         const response = await fetch(
-            `${BASE_URL}/category/${categoryId}/item`,
+            `${BASE_URL}/categories/${categoryId}/items`,
             {
                 method: "GET",
             }
@@ -21,7 +21,7 @@ export async function fetchItemsFromCategory(categoryId) {
 }
 export async function fetchItem(itemId) {
     try {
-        const response = await fetch(`${BASE_URL}/item/${itemId}`, {
+        const response = await fetch(`${BASE_URL}/items/${itemId}`, {
             method: "GET",
         });
         const data = await response.json();
@@ -39,7 +39,7 @@ export async function fetchItem(itemId) {
 
 export async function deleteItem(itemId) {
     try {
-        const response = await fetch(`${BASE_URL}/item/${itemId}`, {
+        const response = await fetch(`${BASE_URL}/items/${itemId}`, {
             method: "DELETE",
         });
     } catch (error) {

@@ -29,20 +29,20 @@ const PORT = 3000;
 //________________________________________________________________________
 // GETS __________________________________________________________________
 app.get("/", getHomeController);
-app.get("/all-categories", getAllCategoriesController);
-app.get("/category/:categoryId", getCategoryController);
-app.get("/category/:categoryId/item", getItemsFromCategoryController);
-app.get("/item/:itemId", getItemController);
+app.get("/categories", getAllCategoriesController);
+app.get("/categories/:categoryId", getCategoryController);
+app.get("/categories/:categoryId/items", getItemsFromCategoryController);
+app.get("/items/:itemId", getItemController);
 // _______________________________________________________________________
 // POSTS _________________________________________________________________
 // post a new category to the database
-app.post("/category", postCategoryController);
+app.post("/categories", postCategoryController);
 
-app.post("/category/:categoryId/item", postItemToCategoryController);
+app.post("/categories/:categoryId/item", postItemToCategoryController);
 // _______________________________________________________________________
 // DELETES _______________________________________________________________
-app.delete("/category/:categoryId", deleteCategoryController);
-app.delete("/item/:itemId", deleteItemController);
+app.delete("/categories/:categoryId", deleteCategoryController);
+app.delete("/items/:itemId", deleteItemController);
 
 // _______________________________________________________________________
 

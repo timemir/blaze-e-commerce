@@ -3,7 +3,7 @@ import { BASE_URL } from "./config";
 // Function to fetch all categories
 export async function fetchCategories() {
     try {
-        const response = await fetch(`${BASE_URL}/all-categories`, {
+        const response = await fetch(`${BASE_URL}/categories`, {
             method: "GET",
         });
         // const data = await response.json();
@@ -19,7 +19,7 @@ export async function fetchCategories() {
 
 export async function fetchCategory(categoryId) {
     try {
-        const response = await fetch(`${BASE_URL}/category/${categoryId}`, {
+        const response = await fetch(`${BASE_URL}/categories/${categoryId}`, {
             method: "GET",
         });
         const data = await response.json();
@@ -37,7 +37,7 @@ export async function fetchCategory(categoryId) {
 
 export async function deleteCategory(categoryId) {
     try {
-        const response = await fetch(`${BASE_URL}/category/${categoryId}`, {
+        const response = await fetch(`${BASE_URL}/categories/${categoryId}`, {
             method: "DELETE",
         });
     } catch (error) {
