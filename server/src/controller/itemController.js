@@ -8,7 +8,7 @@ async function getItemsFromCategoryController(req, res) {
     res.json(items);
 }
 async function getItemController(req, res) {
-    // Get a single item
+    // Get a single items
     const item = await ItemModel.findById(req.params.itemId);
     res.json(item);
 }

@@ -1,6 +1,7 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import ItemDetails from "./components/Shop/ItemDetails";
 import Admin from "./pages/admin/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminCategories from "./pages/admin/AdminCategories";
@@ -35,6 +36,7 @@ export function App() {
                     path="/admin-categories/:categoryId/item/:itemId"
                     element={<AdminItemDetails />}
                 />
+                <Route path="/item/:itemId" element={<ItemDetails />} />
                 <Route path="/new-arrivals" element={<NewArrivals />} />
                 <Route path="/productivity" element={<Productivity />} />
                 <Route path="/workspace" element={<Workspace />} />

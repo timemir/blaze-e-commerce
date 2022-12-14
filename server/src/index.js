@@ -27,24 +27,38 @@ app.use(express.json());
 
 const PORT = 3000;
 //________________________________________________________________________
+// ROUTES #################################################################
 // GETS __________________________________________________________________
+// Home
 app.get("/", getHomeController);
+
+// Categories
 app.get("/categories", getAllCategoriesController);
 app.get("/categories/:categoryId", getCategoryController);
+
+// Items
 app.get("/categories/:categoryId/items", getItemsFromCategoryController);
 app.get("/items/:itemId", getItemController);
+
 // _______________________________________________________________________
+
 // POSTS _________________________________________________________________
-// post a new category to the database
+// Categories
 app.post("/categories", postCategoryController);
 
+// Items
 app.post("/categories/:categoryId/item", postItemToCategoryController);
 // _______________________________________________________________________
+
 // DELETES _______________________________________________________________
+// Categories
 app.delete("/categories/:categoryId", deleteCategoryController);
+
+// Items
 app.delete("/items/:itemId", deleteItemController);
 
 // _______________________________________________________________________
+// #######################################################################
 
 // Connect to MongoDB
 const connectToDb = async () => {
