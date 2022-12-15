@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Button({
     outline = false,
+    type,
     children,
     className,
     onClick,
@@ -13,7 +14,7 @@ export default function Button({
                     ? "bg-transparent transition hover:text-blazeCTA"
                     : "bg-blazeCTA"
             } ${className}`}
-            type="button"
+            type={type || "button"}
             onClick={onClick}
         >
             {children}
