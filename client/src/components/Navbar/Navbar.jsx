@@ -1,5 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/images/icons/iconTrans.png";
 import Button from "../UI/General/Button";
 import HamburgerButton from "../UI/General/HamburgerButton";
@@ -25,7 +26,9 @@ export default function Navbar() {
                 <SearchBar />
                 <Button>Register</Button>
                 <Button outline> Login </Button>
-                <CgProfile className="text-2xl" />
+                <Link to="/cart">
+                    <CgProfile className="text-2xl" />
+                </Link>
             </div>
             {/* Mobile View */}
             <div className=" flex space-x-3 md:hidden">

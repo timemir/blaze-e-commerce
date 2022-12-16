@@ -1,6 +1,7 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import ShoppingCart from "./components/Shop/Cart/ShoppingCart";
 import ItemDetails from "./components/Shop/ItemDetails";
 import Admin from "./pages/admin/Admin";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
@@ -42,6 +43,7 @@ export function App() {
                 <Route path="/workspace" element={<Workspace />} />
                 <Route path="/accessories" element={<Accessories />} />
                 <Route path="/sale" element={<Sale />} />
+                <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </div>

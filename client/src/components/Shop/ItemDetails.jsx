@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
-
+import useCartStore from "../../store/shoppingCartStore";
 // DUMMY DATA:
 const itemDUMMY = {
     id: 1,
@@ -49,6 +49,7 @@ const reviews = {
     total: 117,
 };
 export default function ItemDetails() {
+    const addItem = useCartStore((state) => state.addItem);
     const [item, setItem] = useState(itemDUMMY);
     const [selectedSize, setSelectedSize] = useState(
         item.sizes ? item.sizes[0] : null
@@ -90,7 +91,14 @@ export default function ItemDetails() {
     }, []);
 
     function submitHandler(event) {
+        event.preventDefault();
         console.log(event);
+        const selectedItem = {
+            ...item,
+            selectedSize: selectedSize,
+            selectedColor: selectedColor,
+        };
+        addItem(selectedItem);
     }
 
     return (
