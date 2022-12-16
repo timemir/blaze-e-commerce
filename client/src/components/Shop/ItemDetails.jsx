@@ -95,8 +95,8 @@ export default function ItemDetails() {
         console.log(event);
         const selectedItem = {
             ...item,
-            selectedSize: selectedSize,
-            selectedColor: selectedColor,
+            selectedSize: selectedSize || null,
+            selectedColor: selectedColor || null,
         };
         addItem(selectedItem);
     }

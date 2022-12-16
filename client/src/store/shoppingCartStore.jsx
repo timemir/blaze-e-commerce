@@ -24,14 +24,26 @@ const useCartStore = create((set) => ({
             if (existingItem) {
                 // Increase the quantity of the existing item
                 existingItem.quantity++;
-                // Add the state to the local storage
-                localStorage.setItem("cart", JSON.stringify(state));
+                const newTotal = state.total + item.price;
+
+                // Add the state and total to the local storage
+                localStorage.setItem(
+                    "cart",
+                    JSON.stringify({ ...state, total: newTotal })
+                );
                 return {
                     ...state,
-                    total: state.total + item.price,
+                    total: newTotal,
                 };
             }
-            // Add the new item to the cart
+            // Add the new item to the cart and local storage
+            localStorage.setItem(
+                "cart",
+                JSON.stringify({
+                    items: [...state.items, { ...item, quantity: 1 }],
+                    total: state.total + item.price,
+                })
+            );
             return {
                 items: [...state.items, { ...item, quantity: 1 }],
                 total: state.total + item.price,
@@ -50,15 +62,55 @@ const useCartStore = create((set) => ({
                         ...state.items.slice(0, index),
                         ...state.items.slice(index + 1),
                     ];
+                    // update the local storage
+                    localStorage.setItem(
+                        "cart",
+                        JSON.stringify({
+                            items: newItems,
+                            total: state.total - item.price,
+                        })
+                    );
                     return {
                         items: newItems,
                         total: state.total - item.price,
                     };
                 }
-                // Update the total price
+                // Update the total price and local storage
+                localStorage.setItem(
+                    "cart",
+                    JSON.stringify({
+                        ...state,
+                        total: state.total - item.price,
+                    })
+                );
                 return {
                     ...state,
                     total: state.total - item.price,
+                };
+            }
+            return state;
+        }),
+    deleteItem: (item) =>
+        set((state) => {
+            const existingItem = state.items.find((i) => i.id === item.id);
+            if (existingItem) {
+                // Remove the item from the cart
+                const index = state.items.indexOf(item);
+                const newItems = [
+                    ...state.items.slice(0, index),
+                    ...state.items.slice(index + 1),
+                ];
+                // update the local storage
+                localStorage.setItem(
+                    "cart",
+                    JSON.stringify({
+                        items: newItems,
+                        total: state.total - item.price * item.quantity,
+                    })
+                );
+                return {
+                    items: newItems,
+                    total: state.total - item.price * item.quantity,
                 };
             }
             return state;
