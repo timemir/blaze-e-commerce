@@ -15,6 +15,7 @@ const {
     getItemsFromCategoryController,
     getItemController,
     deleteItemController,
+    getAllItemsController,
 } = require("./controller/itemController");
 // --------------------
 // SETUP _________________________________________________________________
@@ -37,6 +38,7 @@ app.get("/categories", getAllCategoriesController);
 app.get("/categories/:categoryId", getCategoryController);
 
 // Items
+app.get("items", getAllItemsController);
 app.get("/categories/:categoryId/items", getItemsFromCategoryController);
 app.get("/items/:itemId", getItemController);
 

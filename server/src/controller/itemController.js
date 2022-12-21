@@ -12,6 +12,11 @@ async function getItemController(req, res) {
     const item = await ItemModel.findById(req.params.itemId);
     res.json(item);
 }
+async function getAllItemsController(req, res) {
+    // Get all items
+    const items = await ItemModel.find();
+    res.json(items);
+}
 //________________________________________________________________________
 // POSTS _________________________________________________________________
 async function postItemToCategoryController(req, res) {
@@ -62,5 +67,6 @@ module.exports = {
     getItemsFromCategoryController,
     postItemToCategoryController,
     getItemController,
+    getAllItemsController,
     deleteItemController,
 };
