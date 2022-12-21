@@ -33,7 +33,7 @@ async function postItemToCategoryController(req, res) {
         price: req.body.price,
         // description: String
         description: req.body.description,
-        // images: [{image: String, imageAlt: String}, {...}]
+        // images: [{url: String, imageAlt: String}, {...}]
         images: req.body.images,
         // sizes: [{name: String, inStock: Boolean}, {...}]
         sizes: req.body.sizes,
