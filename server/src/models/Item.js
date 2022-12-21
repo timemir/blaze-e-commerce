@@ -6,11 +6,13 @@ const ItemSchema = new mongoose.Schema({
     name: String,
     price: Number,
     description: String,
-    image: String,
-    size: String,
-    color: String,
+    images: [{ url: String, alt: String }], // {url: String, alt: String}
+    sizes: [{ name: String, inStock: Boolean }],
+    colors: [{ name: String, class: String, selectedClass: String }],
     available: Boolean,
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    rating: Number,
+    sale: Boolean,
 });
 
 // create a mongoose model for a shop item

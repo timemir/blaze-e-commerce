@@ -19,6 +19,9 @@ module.exports = {
             // => @media (min-width: 1536px) { ... }
         },
         extend: {
+            backgroundImage: {
+                "hero-bg": "url('./assets/images/hero-bg.jpg')",
+            },
             colors: {
                 blazePimary: "#3A3E45",
                 blazePrimary900: "#1A1D24",
@@ -59,5 +62,6 @@ module.exports = {
     plugins: [
         // ...
         // require("@tailwindcss/aspect-ratio"),
+        require("@headlessui/tailwindcss")({ prefix: "ui" }),
     ],
 };

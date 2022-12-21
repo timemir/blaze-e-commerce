@@ -3,9 +3,20 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-// Models
-const ItemModel = require("./models/Item");
-const CategoryModel = require("./models/Category");
+const {
+    getAllCategoriesController,
+    getCategoryController,
+    postCategoryController,
+    deleteCategoryController,
+} = require("./controller/categoryController");
+const { getHomeController } = require("./controller/homeController");
+const {
+    postItemToCategoryController,
+    getItemsFromCategoryController,
+    getItemController,
+    deleteItemController,
+    getAllItemsController,
+} = require("./controller/itemController");
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
@@ -17,36 +28,39 @@ app.use(express.json());
 
 const PORT = 3000;
 //________________________________________________________________________
+// ROUTES #################################################################
 // GETS __________________________________________________________________
-app.get("/", (req, res) => {
-    // Send the message "Hello World!" to the client
-    res.send("Hello World!");
-});
-app.get("/all-categories", async (req, res) => {
-    // Get all categories from the database
-    const categories = await CategoryModel.find();
+// Home
+app.get("/", getHomeController);
 
-    // Send the categories as a JSON response
-    res.json(categories);
-});
-app.get("/category2", (req, res) => {
-    res.send("category2");
-});
+// Categories
+app.get("/categories", getAllCategoriesController);
+app.get("/categories/:categoryId", getCategoryController);
+
+// Items
+app.get("items", getAllItemsController);
+app.get("/categories/:categoryId/items", getItemsFromCategoryController);
+app.get("/items/:itemId", getItemController);
+
 // _______________________________________________________________________
+
 // POSTS _________________________________________________________________
-// post a new category to the database
-app.post("/create-category", async (req, res) => {
-    // Create a new category
-    const newCategory = new CategoryModel({
-        name: req.body.name,
-        items: [],
-    });
-    // Save the new category to the database
-    await newCategory.save();
-    // Send a confirmation message
-    res.send("category created");
-});
+// Categories
+app.post("/categories", postCategoryController);
+
+// Items
+app.post("/categories/:categoryId/item", postItemToCategoryController);
 // _______________________________________________________________________
+
+// DELETES _______________________________________________________________
+// Categories
+app.delete("/categories/:categoryId", deleteCategoryController);
+
+// Items
+app.delete("/items/:itemId", deleteItemController);
+
+// _______________________________________________________________________
+// #######################################################################
 
 // Connect to MongoDB
 const connectToDb = async () => {

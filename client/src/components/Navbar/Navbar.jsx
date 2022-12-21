@@ -1,15 +1,16 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/images/icons/iconTrans.png";
-import Button from "../UI/Button";
-import HamburgerButton from "../UI/HamburgerButton";
-import SearchBar from "../UI/SearchBar";
+import Button from "../UI/General/Button";
+import HamburgerButton from "../UI/General/HamburgerButton";
+import SearchBar from "../UI/General/SearchBar";
 import NavLinks from "./NavLinks";
 // import react icons
 
 export default function Navbar() {
     return (
-        <div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary">
+        <div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary z-50">
             {/* Logo */}
             <div className="w-9">
                 <a href="../../../index.html">
@@ -23,8 +24,11 @@ export default function Navbar() {
             {/* Buttons */}
             <div className="hidden md:flex justify-center items-center space-x-2">
                 <SearchBar />
-                <Button label="Register" />
-                <Button label="Login" outline />
+                <Button>Register</Button>
+                <Button outline> Login </Button>
+                <Link to="/cart">
+                    <CgProfile className="text-2xl" />
+                </Link>
             </div>
             {/* Mobile View */}
             <div className=" flex space-x-3 md:hidden">

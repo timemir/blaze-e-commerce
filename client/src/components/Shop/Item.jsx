@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 // TODO: Make this component more dynamic(smaller) for larger screens
 export default function Item({ item }) {
@@ -12,7 +13,7 @@ export default function Item({ item }) {
     return (
         <div key={item.id} className="relative">
             <div className="relative min-h-80 aspect-auto w-full overflow-hidden rounded-md bg-gray-200 hover:opacity-75 lg:aspect-none lg:h-80">
-                <div className="flex z-50 justify-center items-center h-10 w-16 rounded-l-lg absolute top-2 right-0 bg-blazePrimary100">
+                <div className="flex justify-center items-center h-10 w-16 rounded-l-lg absolute top-2 right-0 bg-blazePrimary100 ">
                     {isHearted ? (
                         <AiFillHeart
                             className="text-3xl text-blazeCTA"
@@ -36,20 +37,20 @@ export default function Item({ item }) {
                         <p />
                     )}
                 </div>
-                <a href={item.href}>
+                <Link to={`/item/${item.id}`}>
                     <img
                         src={item.image}
                         alt={item.imageAlt}
                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                     />
-                </a>
+                </Link>
             </div>
             <div className="mt-4 flex justify-between">
                 <div>
                     <h3 className="text-sm text-gray-700 ">
-                        <a href={item.href}>
+                        <Link to={`/item/${item.id}`}>
                             <p>{item.name}</p>
-                        </a>
+                        </Link>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{item.brand}</p>
                 </div>

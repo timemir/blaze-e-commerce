@@ -3,7 +3,39 @@ import { BsChevronDown } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 export default function DropdownButton({ label }) {
-    // TODO: Implement dropdown menu logic
+    const [elements, setElements] = useState([
+        {
+            id: 1,
+            title: "All Categories",
+            link: "/all-categories",
+        },
+        {
+            id: 2,
+            title: "New Arrivals",
+            link: "/new-arrivals",
+        },
+        {
+            id: 3,
+            title: "Productivity",
+            link: "/productivity",
+        },
+        {
+            id: 4,
+            title: "Workspace",
+            link: "/workspace",
+        },
+        {
+            id: 5,
+            title: "Accessories",
+            link: "/accessories",
+        },
+        {
+            id: 6,
+            title: "Sale",
+            link: "/sale",
+        },
+    ]);
+
     const [isOpen, setIsOpen] = useState(false);
     function toggleHandler() {
         setIsOpen(!isOpen);
@@ -38,35 +70,16 @@ export default function DropdownButton({ label }) {
                     onMouseLeave={toggleHandler}
                 >
                     <div className="py-1" role="none">
-                        <Link
-                            className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-gray-100 hover:text-blazeCTA"
-                            to="/all-categories"
-                            onClick={toggleHandler}
-                        >
-                            All Categories
-                        </Link>
-
-                        <Link
-                            className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-gray-100 hover:text-blazeCTA"
-                            to="/"
-                            onClick={toggleHandler}
-                        >
-                            All Categories
-                        </Link>
-                        <Link
-                            className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-gray-100 hover:text-blazeCTA"
-                            to="/"
-                            onClick={toggleHandler}
-                        >
-                            All Categories
-                        </Link>
-                        <Link
-                            className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-gray-100 hover:text-blazeCTA"
-                            to="/"
-                            onClick={toggleHandler}
-                        >
-                            All Categories
-                        </Link>
+                        {elements.map((element) => (
+                            <Link
+                                key={element.id}
+                                className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-gray-100 hover:text-blazeCTA z-50"
+                                to={element.link}
+                                onClick={toggleHandler}
+                            >
+                                {element.title}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
