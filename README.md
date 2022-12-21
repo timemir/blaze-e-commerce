@@ -21,6 +21,7 @@ It is made with React, and uses React Router for routing. It uses unique compone
 
 Just started working on it, so there's a lot of room for optimization. ;)
 
+
 -   Make the Admin Sidebar into a component that uses the current route to determine which link is active and gets a different color.
 
 ## Dev Status:
@@ -36,6 +37,7 @@ Just started working on it, so there's a lot of room for optimization. ;)
 -   [ ] Order Summary - 0%
 -   [ ] Checkout - 0%
 -   [ ] ...
+
 <!-- ## Lessons Learned:
 
 No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those _whoa this is awesome_ or _fuck yeah I did it!_ moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing. -->
