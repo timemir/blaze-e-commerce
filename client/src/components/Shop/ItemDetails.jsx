@@ -111,39 +111,57 @@ export default function ItemDetails() {
                 </p>
             </div>
             {/* Pictures */}
-            <div className="-mx-4 mb-8">
-                <img src={item.image} alt={item.imageAlt} />
+            <div className="-mx-4 mb-8 md:mx-auto">
+                <img
+                    className="lg:max-h-96 rounded-lg"
+                    src={item.image}
+                    alt={item.imageAlt}
+                />
             </div>
             {/* Details */}
-            <div>
-                {/* Title */}
-                <div className="mb-4">
-                    <h1 className="font-bold text-2xl ">{item.name}</h1>
-                </div>
-                {/* Price */}
-                <div className="mb-4">
-                    <p className="text-4xl font-light">{`$${item.price}`}</p>
-                </div>
-                {/* Ratings */}
-                <div className="flex flex-row space-x-4 mb-8">
-                    <div className="flex flex-row">
-                        {[1, 2, 3, 4, 5].map((i) => {
-                            if (i <= reviews.average) {
-                                return (
-                                    <AiFillStar key={i} className="text-2xl" />
-                                );
-                            }
-                            return (
-                                <AiOutlineStar key={i} className="text-2xl" />
-                            );
-                        })}
+            <div className="flex flex-col lg:flex-row lg:mx-auto">
+                <div>
+                    {/* Title */}
+                    <div className="mb-4">
+                        <h1 className="font-bold text-2xl ">{item.name}</h1>
                     </div>
-                    <Link to="/">
-                        <p className="text-blazeCTA">{reviews.total} reviews</p>
-                    </Link>
+                    {/* Price */}
+                    <div className="mb-4">
+                        <p className="text-4xl font-light">{`$${item.price}`}</p>
+                    </div>
+                    {/* Ratings */}
+                    <div className="flex flex-row space-x-4 mb-8">
+                        <div className="flex flex-row">
+                            {[1, 2, 3, 4, 5].map((i) => {
+                                if (i <= reviews.average) {
+                                    return (
+                                        <AiFillStar
+                                            key={i}
+                                            className="text-2xl"
+                                        />
+                                    );
+                                }
+                                return (
+                                    <AiOutlineStar
+                                        key={i}
+                                        className="text-2xl"
+                                    />
+                                );
+                            })}
+                        </div>
+                        <Link to="/">
+                            <p className="text-blazeCTA">
+                                {reviews.total} reviews
+                            </p>
+                        </Link>
+                    </div>
+                    <div className="hidden lg:block">
+                        <p>{item.description}</p>
+                    </div>
                 </div>
+
                 {/* Color */}
-                <form onSubmit={submitHandler}>
+                <form className="lg:mt-14" onSubmit={submitHandler}>
                     <div className="">
                         <h2 className="text-xl">Color</h2>
                         <RadioGroup
@@ -294,7 +312,7 @@ export default function ItemDetails() {
                     </div>
                 </form>
 
-                <div>
+                <div className="lg:hidden">
                     <p>{item.description}</p>
                 </div>
             </div>
