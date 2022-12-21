@@ -9,6 +9,7 @@ async function getItemsFromCategoryController(req, res) {
 }
 async function getItemController(req, res) {
     // Get a single items
+
     const item = await ItemModel.findById(req.params.itemId);
     res.json(item);
 }
@@ -24,15 +25,28 @@ async function postItemToCategoryController(req, res) {
     const categoryId = req.params.categoryId;
     const category = await CategoryModel.findById(categoryId);
     const newItem = new ItemModel({
+        // brand: String
         brand: req.body.brand,
+        // name: String
         name: req.body.name,
+        // price: Number
         price: req.body.price,
+        // description: String
         description: req.body.description,
+        // images: [{image: String, imageAlt: String}, {...}]
         images: req.body.images,
-        size: req.body.size,
-        color: req.body.color,
+        // sizes: [{name: String, inStock: Boolean}, {...}]
+        sizes: req.body.sizes,
+        // colors : [{name: String, class: tailwind bg-white, selectedClass: tailwind ring-gray-400}, {...}]
+        colors: req.body.colors,
+        // available: Boolean
         available: req.body.available,
+        // category: String (category id)
         category: req.params.categoryId,
+        // rating: Number
+        rating: req.body.rating,
+        // sale: Boolean
+        sale: req.body.sale,
     });
     // Save the new item to the database
     await newItem.save();
