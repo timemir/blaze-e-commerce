@@ -9,6 +9,8 @@ import AdminCategories from "./pages/admin/AdminCategories";
 import AdminCategoryDetails from "./pages/admin/AdminCategoryDetails";
 import AdminComms from "./pages/admin/AdminComms";
 import AdminItemDetails from "./pages/admin/AdminItemDetails";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 import Accessories from "./pages/categories/Accessories";
 import AllCategories from "./pages/categories/AllCategories";
 import NewArrivals from "./pages/categories/NewArrivals";
@@ -24,6 +26,7 @@ export function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                {/* Admin */}
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin-categories" element={<AdminCategories />} />
                 <Route path="/admin-analytics" element={<AdminAnalytics />} />
@@ -37,13 +40,20 @@ export function App() {
                     path="/admin-categories/:categoryId/item/:itemId"
                     element={<AdminItemDetails />}
                 />
+                {/* Item Details */}
                 <Route path="/item/:itemId" element={<ItemDetails />} />
+                {/* Categories */}
                 <Route path="/new-arrivals" element={<NewArrivals />} />
                 <Route path="/productivity" element={<Productivity />} />
                 <Route path="/workspace" element={<Workspace />} />
                 <Route path="/accessories" element={<Accessories />} />
                 <Route path="/sale" element={<Sale />} />
+                {/* Cart */}
                 <Route path="/cart" element={<ShoppingCart />} />
+                {/* Auth */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                {/* 404 */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </div>
