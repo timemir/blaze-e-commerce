@@ -13,9 +13,9 @@ export default function Navbar() {
         <div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary z-50">
             {/* Logo */}
             <div className="w-9">
-                <a href="../../../index.html">
+                <Link to="/">
                     <img src={Logo} alt="" />
-                </a>
+                </Link>
             </div>
             {/* Links */}
             <div className="hidden md:flex">
@@ -24,8 +24,12 @@ export default function Navbar() {
             {/* Buttons */}
             <div className="hidden md:flex justify-center items-center space-x-2">
                 <SearchBar />
-                <Button>Register</Button>
-                <Button outline> Login </Button>
+                <Link to="/register">
+                    <Button>Register</Button>
+                </Link>
+                <Link to="/login">
+                    <Button outline> Login </Button>
+                </Link>
                 <Link to="/cart">
                     <CgProfile className="text-2xl" />
                 </Link>

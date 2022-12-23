@@ -17,6 +17,10 @@ const {
     deleteItemController,
     getAllItemsController,
 } = require("./controller/itemController");
+const {
+    loginController,
+    registerController,
+} = require("./controller/authController");
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
@@ -50,6 +54,10 @@ app.post("/categories", postCategoryController);
 
 // Items
 app.post("/categories/:categoryId/item", postItemToCategoryController);
+
+// Auth
+app.post("auth/login", loginController);
+app.post("auth/register", registerController);
 // _______________________________________________________________________
 
 // DELETES _______________________________________________________________
