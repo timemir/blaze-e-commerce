@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import ItemCard from "./ItemCard";
 
 export default function ItemCardList({ heading, itemCards }) {
@@ -8,12 +9,14 @@ export default function ItemCardList({ heading, itemCards }) {
             <div className="flex justify-between mb-4">
                 <h2 className="text-xl md:text-2xl font-bold">{heading}</h2>
                 <div className="flex items-center">
-                    <button
-                        type="button"
-                        className="text-blazeCTA font-semibold text-md md:text-lg"
-                    >
-                        Browse all categories
-                    </button>
+                    <Link to="/all-categories">
+                        <button
+                            type="button"
+                            className="text-blazeCTA font-semibold text-md md:text-lg"
+                        >
+                            Browse all categories
+                        </button>
+                    </Link>
                     <AiOutlineArrowRight className="text-blazeCTA ml-1" />
                 </div>
             </div>

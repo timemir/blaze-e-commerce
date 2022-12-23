@@ -22,7 +22,10 @@ import NotFound from "./pages/NotFound";
 
 export function App() {
     return (
-        <div id="app" className="container relative mx-auto bg-white">
+        <div
+            id="app"
+            className="container relative mx-auto bg-white min-h-screen"
+        >
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
