@@ -20,7 +20,14 @@ const {
 const {
     loginController,
     registerController,
+    allAccess,
+    userBoard,
+    moderatorBoard,
+    adminBoard,
 } = require("./controller/authController");
+const { verifySignUp, authJWT } = require("./middlewares");
+const db = require("./models");
+const Role = db.role;
 // --------------------
 // SETUP _________________________________________________________________
 const app = express();
@@ -29,6 +36,17 @@ const app = express();
 app.use(cors());
 // Some middleware to parse the body of requests as JSON
 app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+app.use(function (req, res, next) {
+    res.header(
+        "Access-Control-Allow-Headers",
+        "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+});
 
 const PORT = 3000;
 //________________________________________________________________________
@@ -46,6 +64,16 @@ app.get("items", getAllItemsController);
 app.get("/categories/:categoryId/items", getItemsFromCategoryController);
 app.get("/items/:itemId", getItemController);
 
+// Auth
+// Auth Testing
+app.get("/test/all", allAccess);
+app.get("/test/user", [authJWT.verifyToken], userBoard);
+app.get(
+    "/test/mod",
+    [authJWT.verifyToken, authJWT.isModerator],
+    moderatorBoard
+);
+app.get("/test/admin", [authJWT.verifyToken, authJWT.isAdmin], adminBoard);
 // _______________________________________________________________________
 
 // POSTS _________________________________________________________________
@@ -56,8 +84,15 @@ app.post("/categories", postCategoryController);
 app.post("/categories/:categoryId/item", postItemToCategoryController);
 
 // Auth
-app.post("auth/login", loginController);
-app.post("auth/register", registerController);
+app.post("/auth/login", loginController);
+app.post(
+    "/auth/register",
+    [
+        verifySignUp.checkDuplicateUsernameOrEmail,
+        verifySignUp.checkRolesExisted,
+    ],
+    registerController
+);
 // _______________________________________________________________________
 
 // DELETES _______________________________________________________________
@@ -78,10 +113,47 @@ const connectToDb = async () => {
             useUnifiedTopology: true,
         });
         console.log("Connected to MongoDB");
+        initial();
     } catch (error) {
         console.log(error);
     }
 };
+
+function initial() {
+    Role.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+            new Role({
+                name: "user",
+            }).save((err) => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'user' to roles collection");
+            });
+
+            new Role({
+                name: "moderator",
+            }).save((err) => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'moderator' to roles collection");
+            });
+
+            new Role({
+                name: "admin",
+            }).save((err) => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'admin' to roles collection");
+            });
+        }
+    });
+}
 
 const startServer = async () => {
     await connectToDb();
