@@ -23,7 +23,8 @@ function loginController(req, res) {
                 return res.status(404).send({ message: "User Not found." });
             }
 
-            var passwordIsValid = bcrypt.compareSync(
+            // check if the password is valid
+            let passwordIsValid = bcrypt.compareSync(
                 req.body.password,
                 user.password
             );
@@ -35,10 +36,12 @@ function loginController(req, res) {
                 });
             }
 
+            // creation of access token
             let token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: config.jwtExpiration, // 24 hours
             });
 
+            // once the user is logged in, create a refresh token
             let refreshToken = await RefreshToken.createToken(user);
 
             let authorities = [];
@@ -55,30 +58,21 @@ function loginController(req, res) {
                 refreshToken: refreshToken,
             });
         });
-    // 1. Verify that the email and password are correct.
-    // This can be done by querying the database for a user with the given
-    // email and password and checking that the user exists and that the password is
-    // correct.
-    // 2. If the email and password are correct, create a JWT using the
-    // jsonwebtoken package. The JWT should contain the user's email and any
-    // other relevant information (such as the user's name or ID). You will also
-    // need to set an expiration time for the JWT and specify a secret used to sign
-    // the JWT.
-    // 3. Send the JWT back to the client as the response to the login request.
-    // The client can then store the JWT in a cookie or local storage for use
-    // in subsequent requests.
 }
 
 async function refreshTokenController(req, res) {
     const { refreshToken: requestToken } = req.body;
 
+    // if there is no token in the request body, return an error
     if (requestToken == null) {
         return res.status(403).json({ message: "Refresh Token is required!" });
     }
 
     try {
+        // find the refresh token in the database
         let refreshToken = await RefreshToken.findOne({ token: requestToken });
 
+        // if the token is not in the database (it expired), return an error
         if (!refreshToken) {
             res.status(403).json({
                 message: "Refresh token is not in database!",
@@ -86,8 +80,9 @@ async function refreshTokenController(req, res) {
             return;
         }
 
-        // verify if the token is expired
+        // check if the token is expired
         if (RefreshToken.verifyExpiration(refreshToken)) {
+            // if the token is expired, delete it from the database
             RefreshToken.findByIdAndRemove(refreshToken._id, {
                 useFindAndModify: false,
             }).exec();
@@ -99,6 +94,7 @@ async function refreshTokenController(req, res) {
             return;
         }
 
+        // create a new access token, if the refresh token is valid
         let newAccessToken = jwt.sign(
             { id: refreshToken.user._id },
             config.secret,
@@ -106,12 +102,13 @@ async function refreshTokenController(req, res) {
                 expiresIn: config.jwtExpiration,
             }
         );
-
+        // send the new access token and the old refresh token back to the client
         return res.status(200).json({
             accessToken: newAccessToken,
             refreshToken: refreshToken.token,
         });
     } catch (err) {
+        // if there is an unexpected error, return it
         return res.status(500).send({ message: err });
     }
 }
@@ -175,10 +172,6 @@ function registerController(req, res) {
             });
         }
     });
-    // 1. Verify that the email is unique and that all required fields are present.
-    // 2. Create a new user in the database with the provided information.
-    // 3. Create a JWT for the new user using the same process as in the login route.
-    // 4. Send the JWT back to the client as the response to the registration request.
 }
 
 // TESTS

@@ -94,7 +94,7 @@ app.post(
     ],
     registerController
 );
-app.post("/auth/refreshToken", refreshTokenController);
+app.post("/auth/refreshToken", refreshTokenController); // used for creating new access tokens
 // _______________________________________________________________________
 
 // DELETES _______________________________________________________________

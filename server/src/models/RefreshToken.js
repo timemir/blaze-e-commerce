@@ -37,6 +37,7 @@ RefreshTokenSchema.statics.createToken = async function (user) {
 };
 
 RefreshTokenSchema.statics.verifyExpiration = (token) => {
+    // returns true if the token is expired (less than the current time)
     return token.expiryDate.getTime() < new Date().getTime();
 };
 
