@@ -24,6 +24,7 @@ const {
     userBoard,
     moderatorBoard,
     adminBoard,
+    refreshTokenController,
 } = require("./controller/authController");
 const { verifySignUp, authJWT } = require("./middlewares");
 const db = require("./models");
@@ -93,6 +94,7 @@ app.post(
     ],
     registerController
 );
+app.post("/auth/refreshToken", refreshTokenController);
 // _______________________________________________________________________
 
 // DELETES _______________________________________________________________

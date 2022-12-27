@@ -6,7 +6,9 @@ const Role = db.role;
 
 const { TokenExpiredError } = jwt;
 
+// error handler
 const catchError = (err, res) => {
+    // Catch error if token is expired
     if (err instanceof TokenExpiredError) {
         return res
             .status(401)

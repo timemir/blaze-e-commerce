@@ -2,6 +2,7 @@ const config = require("../config/auth");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
+const RefreshToken = db.refreshToken;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -12,7 +13,7 @@ function loginController(req, res) {
     })
         // replaces the role IDs with the actual role documents
         .populate("roles", "-__v")
-        .exec((err, user) => {
+        .exec(async (err, user) => {
             if (err) {
                 res.status(500).send({ message: err });
                 return;
@@ -34,11 +35,13 @@ function loginController(req, res) {
                 });
             }
 
-            var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 86400, // 24 hours
+            let token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: config.jwtExpiration, // 24 hours
             });
 
-            var authorities = [];
+            let refreshToken = await RefreshToken.createToken(user);
+
+            let authorities = [];
 
             for (let i = 0; i < user.roles.length; i++) {
                 authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
@@ -49,6 +52,7 @@ function loginController(req, res) {
                 email: user.email,
                 roles: authorities,
                 accessToken: token,
+                refreshToken: refreshToken,
             });
         });
     // 1. Verify that the email and password are correct.
@@ -63,6 +67,53 @@ function loginController(req, res) {
     // 3. Send the JWT back to the client as the response to the login request.
     // The client can then store the JWT in a cookie or local storage for use
     // in subsequent requests.
+}
+
+async function refreshTokenController(req, res) {
+    const { refreshToken: requestToken } = req.body;
+
+    if (requestToken == null) {
+        return res.status(403).json({ message: "Refresh Token is required!" });
+    }
+
+    try {
+        let refreshToken = await RefreshToken.findOne({ token: requestToken });
+
+        if (!refreshToken) {
+            res.status(403).json({
+                message: "Refresh token is not in database!",
+            });
+            return;
+        }
+
+        // verify if the token is expired
+        if (RefreshToken.verifyExpiration(refreshToken)) {
+            RefreshToken.findByIdAndRemove(refreshToken._id, {
+                useFindAndModify: false,
+            }).exec();
+
+            res.status(403).json({
+                message:
+                    "Refresh token was expired. Please make a new signin request",
+            });
+            return;
+        }
+
+        let newAccessToken = jwt.sign(
+            { id: refreshToken.user._id },
+            config.secret,
+            {
+                expiresIn: config.jwtExpiration,
+            }
+        );
+
+        return res.status(200).json({
+            accessToken: newAccessToken,
+            refreshToken: refreshToken.token,
+        });
+    } catch (err) {
+        return res.status(500).send({ message: err });
+    }
 }
 
 function registerController(req, res) {
@@ -154,4 +205,5 @@ module.exports = {
     userBoard,
     moderatorBoard,
     adminBoard,
+    refreshTokenController,
 };
