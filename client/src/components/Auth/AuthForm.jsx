@@ -1,10 +1,31 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AuthForm({ type }) {
+    const [valError, setValError] = useState("");
+
+    // Validate email and password
+    function validateParams(params) {
+        if (params.email !== params.confirmEmail) {
+            setValError("Emails do not match");
+            return false;
+        }
+        if (params.password !== params.confirmPassword) {
+            setValError("Passwords do not match");
+            return false;
+        }
+        if (params.password.length < 6) {
+            setValError("Password must be at least 6 characters");
+            return false;
+        }
+        return true;
+    }
+
+    // Handle form submit
     function handleSubmit(event) {
         event.preventDefault();
+        setValError("");
         const params = {
             email: event.target.email.value,
             password: event.target.password.value,
@@ -12,9 +33,14 @@ export default function AuthForm({ type }) {
         if (type === "register") {
             params.confirmEmail = event.target["confirm-email"].value;
             params.confirmPassword = event.target["confirm-password"].value;
+            if (validateParams(params)) {
+                return console.log("register", params);
+            }
+            return console.log(valError);
         }
-        console.log(params);
+        return console.log("login", params);
     }
+
     return (
         <form
             onSubmit={handleSubmit}
@@ -77,6 +103,7 @@ export default function AuthForm({ type }) {
                     </Link>
                 </div>
             )}
+            <div className="font-bold text-red-500 text-center">{valError}</div>
             <div className="flex">
                 <button
                     className="bg-blazeCTA text-white w-full rounded-lg p-2"
