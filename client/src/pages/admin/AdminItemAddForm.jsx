@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { uploadImage } from "../../util/http/items";
+import { useParams } from "react-router-dom";
+import { createItem, uploadImage } from "../../util/http/items";
 
 export default function AdminItemAddForm() {
     const [brand, setBrand] = useState("");
@@ -8,33 +9,47 @@ export default function AdminItemAddForm() {
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
     const [imageAlt, setImageAlt] = useState("");
-    const [size, setSize] = useState("");
+    const [size, setSize] = useState("XS");
     const [color, setColor] = useState("");
     const [colorTailwind, setColorTailwind] = useState("");
-
+    const [imageSwitch, setImageSwitch] = useState(false);
+    const { categoryId } = useParams();
     function handleUploadImage() {
         uploadImage(image)
             .then((res) => {
                 console.log(res);
                 setImage(res);
+                setImageSwitch(true);
             })
 
             .catch((err) => {
                 console.log("ERROR", err);
+                setImageSwitch(false);
             });
     }
-    function handleAddItem() {
+    function handleAddItem(e) {
+        e.preventDefault();
         const item = {
             brand,
             name,
             price,
             description,
-            image,
-            imageAlt,
-            size,
-            color,
-            colorTailwind,
+            images: [{ url: image, alt: imageAlt }],
+            sizes: [{ name: size, inStock: true }],
+            colors: [
+                {
+                    name: color,
+                    class: `bg-${colorTailwind}`,
+                    selectedClass: `ring-${colorTailwind}`,
+                },
+            ],
+            available: true,
+            rating: 0,
+            sale: false,
+            category: categoryId,
         };
+        console.log(item);
+        createItem(categoryId, item);
     }
 
     return (
@@ -75,6 +90,9 @@ export default function AdminItemAddForm() {
                         type="text"
                         name="price"
                         id="price"
+                        onChange={(e) => {
+                            setPrice(e.target.value);
+                        }}
                     />
                 </label>
             </div>
@@ -95,16 +113,23 @@ export default function AdminItemAddForm() {
             <div className="flex flex-col">
                 <p>Image</p>
                 <label htmlFor="image">
-                    <input
-                        placeholder="Upload image"
-                        type="file"
-                        name="image"
-                        id="image"
-                        onChange={(e) => {
-                            setImage(e.target.files[0]);
-                            console.log(e.target.files[0]);
-                        }}
-                    />
+                    {imageSwitch ? (
+                        <img
+                            className="w-32"
+                            src={image}
+                            alt="uploaded product"
+                        />
+                    ) : (
+                        <input
+                            placeholder="Upload image"
+                            type="file"
+                            name="image"
+                            id="image"
+                            onChange={(e) => {
+                                setImage(e.target.files[0]);
+                            }}
+                        />
+                    )}
 
                     <input
                         placeholder="Alt Description"
@@ -116,9 +141,10 @@ export default function AdminItemAddForm() {
                         }}
                     />
                     <button
-                        className="rounded-lg bg-blazeCTA text-white p-1 mx-2"
+                        className="rounded-lg bg-blazeCTA text-white p-1 mx-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
                         type="button"
                         onClick={handleUploadImage}
+                        disabled={imageSwitch}
                     >
                         Upload Image
                     </button>
@@ -133,7 +159,7 @@ export default function AdminItemAddForm() {
                         name="size"
                         id="size"
                         onChange={(e) => {
-                            console.log(e.target.value);
+                            setSize(e.target.value);
                         }}
                     >
                         <option value="XS"> XS </option>
@@ -168,6 +194,9 @@ export default function AdminItemAddForm() {
                         type="text"
                         name="colorTailwind"
                         id="colorTailwind"
+                        onChange={(e) => {
+                            setColorTailwind(e.target.value);
+                        }}
                     />
                     <button
                         className="rounded-lg bg-blazeCTA text-white p-2 mx-2"
