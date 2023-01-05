@@ -76,6 +76,7 @@ async function deleteItemController(req, res) {
         where: `inside category ${category.name}`,
     });
 }
+
 //________________________________________________________________________
 module.exports = {
     getItemsFromCategoryController,
