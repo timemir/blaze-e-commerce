@@ -37,10 +37,10 @@ export default function Item({ item }) {
                         <p />
                     )}
                 </div>
-                <Link to={`/item/${item.id}`}>
+                <Link to={`/item/${item._id}`} state={{ data: item._id }}>
                     <img
-                        src={item.image}
-                        alt={item.imageAlt}
+                        src={item.images[0].url}
+                        alt={item.images[0].alt}
                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                     />
                 </Link>
@@ -48,7 +48,10 @@ export default function Item({ item }) {
             <div className="mt-4 flex justify-between">
                 <div>
                     <h3 className="text-sm text-gray-700 ">
-                        <Link to={`/item/${item.id}`}>
+                        <Link
+                            to={`/item/${item._id}`}
+                            state={{ data: item._id }}
+                        >
                             <p>{item.name}</p>
                         </Link>
                     </h3>

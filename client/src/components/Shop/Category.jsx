@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 export default function Category({ category }) {
+    const [categoryId, setCategoryId] = useState(category._id);
     return (
         <div key={category._id} className="relative">
             <div className="relative min-h-80 aspect-auto w-full overflow-hidden rounded-md bg-gray-200 hover:opacity-75 lg:aspect-none lg:h-80">
-                <Link to={`${category.link}`}>
+                <Link to={`${category.link}`} state={{ data: categoryId }}>
                     <img
                         src={category.imageUrl}
                         alt="category"

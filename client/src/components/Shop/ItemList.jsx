@@ -1,39 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { AiFillDashboard } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
+import { fetchItemsFromCategory } from "../../util/http/items";
 import Item from "./Item";
 
-export default function ItemList({ category, query }) {
+export default function ItemList({ category }) {
     const [items, setItems] = useState([]);
+    const location = useLocation();
     useEffect(() => {
-        // TODO: Fetch items from backend with query
-        setItems([
-            {
-                id: 1,
-                href: "#",
-                brand: "Harry Potterly",
-                name: "Plant Pot 3000 - White - modern design dasdasdas",
-                price: 39.99,
-                description: "Nice pot yeee",
-                image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80",
-                imageAlt:
-                    "White and green ceramic plant pot with drainage holes.",
-                sale: true,
-                color: "white",
-            },
-            {
-                id: 2,
-                href: "#",
-                brand: "Harry Potterly",
-                name: "Plant Pot 4000 - White - modern design dasdkasda",
-                price: 49.99,
-                description: "Nice pot yeee",
-                image: "https://images.unsplash.com/photo-1511517099458-7346484896f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-                imageAlt:
-                    "White and green ceramic plant pot with drainage holes.",
-                sale: false,
-                color: "white",
-            },
-        ]);
-    }, []);
+        async function getItems() {
+            const response = await fetchItemsFromCategory(location.state.data);
+            setItems(response);
+        }
+        getItems();
+    }, [location.state.data]);
 
     return (
         <div className="bg-white">
@@ -44,7 +24,7 @@ export default function ItemList({ category, query }) {
 
                 <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {items.map((item) => (
-                        <Item key={item.id} item={item} />
+                        <Item key={item._id} item={item} />
                     ))}
                 </div>
             </div>

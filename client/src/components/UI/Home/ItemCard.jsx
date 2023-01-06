@@ -1,10 +1,12 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ItemCard({ imageUrl, title, className, link }) {
+export default function ItemCard({ imageUrl, title, className, link, id }) {
+    const [categoryId, setCategoryId] = useState(id);
+
     return (
-        <Link to={link}>
+        <Link to={link} state={{ data: categoryId }}>
             <div
                 className={classNames(
                     "flex relative w-full h-96 md:h-80 md:w-56 bg-gradient-to-t from-blazePrimary900 to-blazePrimary50 rounded-lg overflow-hidden hover:opacity-80",

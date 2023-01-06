@@ -2,20 +2,25 @@ import { RadioGroup } from "@headlessui/react";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useCartStore from "../../store/shoppingCartStore";
+import { fetchItem } from "../../util/http/items";
 // DUMMY DATA:
 const itemDUMMY = {
     id: 1,
-    href: "#",
-    brand: "Harry Potterly",
-    name: "Plant Pot 3000 - White - modern design dasdasdas",
-    price: 39.99,
+    href: "",
+    brand: "",
+    name: "",
+    price: 0,
     description: "Nice pot yeee",
-    rating: 4,
-    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80",
-    imageAlt: "White and green ceramic plant pot with drainage holes.",
-    sale: true,
+    rating: 0,
+    images: [
+        {
+            url: "",
+            alt: "Alt",
+        },
+    ],
+    sale: false,
     colors: [
         {
             name: "White",
@@ -54,11 +59,17 @@ export default function ItemDetails() {
     const [selectedSize, setSelectedSize] = useState(
         item.sizes ? item.sizes[0] : null
     );
-
     const [selectedColor, setSelectedColor] = useState(item.colors[0]);
 
+    const location = useLocation();
     useEffect(() => {
         // TODO: fetch item details from server by itemId
+        async function getItem() {
+            const response = await fetchItem(location.state.data);
+            setItem(response);
+        }
+        getItem();
+
         // setItem({
         //     id: 1,
         //     href: "#",
@@ -88,7 +99,7 @@ export default function ItemDetails() {
         //     ],
         // });
         //
-    }, []);
+    }, [location.state.data, item]);
 
     function submitHandler(event) {
         event.preventDefault();
@@ -114,8 +125,8 @@ export default function ItemDetails() {
             <div className="-mx-4 mb-8 md:mx-auto">
                 <img
                     className="lg:max-h-96 rounded-lg"
-                    src={item.image}
-                    alt={item.imageAlt}
+                    src={item.images[0].url}
+                    alt={item.images[0].alt}
                 />
             </div>
             {/* Details */}
