@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import register, { login } from "../../util/http/auth";
 
 export default function AuthForm({ type }) {
     const [valError, setValError] = useState("");
@@ -23,7 +24,7 @@ export default function AuthForm({ type }) {
     }
 
     // Handle form submit
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         setValError("");
         const params = {
@@ -34,11 +35,45 @@ export default function AuthForm({ type }) {
             params.confirmEmail = event.target["confirm-email"].value;
             params.confirmPassword = event.target["confirm-password"].value;
             if (validateParams(params)) {
-                return console.log("register", params);
+                console.log("registerData", params);
+                // Send a request to the backend to create an account
+                try {
+                    const response = await register({
+                        email: params.email,
+                        password: params.password,
+                    });
+                    // const data = await response.json();
+                    console.log(response);
+                } catch (error) {
+                    console.log(error);
+                }
             }
             return console.log(valError);
         }
-        return console.log("login", params);
+        console.log("loginData", params);
+        // Send a request to the backend to login user
+        try {
+            const response = await login({
+                email: params.email,
+                password: params.password,
+            });
+            const data = await response.json();
+            console.log(data);
+            // Save the AccessToken and RefreshToken in Local Storage
+            if (data.accessToken && data.refreshToken) {
+                localStorage.setItem(
+                    "token",
+                    JSON.stringify({
+                        id: data.id,
+                        access: data.accessToken,
+                        refresh: data.refreshToken,
+                    })
+                );
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log("AuthForm ERROR", error);
+        }
     }
 
     return (
@@ -74,15 +109,19 @@ export default function AuthForm({ type }) {
                     name="password"
                     id="password"
                 />
-                <label className="" htmlFor="password">
-                    Confirm password
-                </label>
-                <input
-                    className="rounded-md border-2 h-8"
-                    type="password"
-                    name="confirm-password"
-                    id="confirm-password"
-                />
+                {type === "register" && (
+                    <>
+                        <label className="" htmlFor="password">
+                            Confirm password
+                        </label>
+                        <input
+                            className="rounded-md border-2 h-8"
+                            type="password"
+                            name="confirm-password"
+                            id="confirm-password"
+                        />
+                    </>
+                )}
             </div>
             {type === "login" && (
                 <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center justify-between">

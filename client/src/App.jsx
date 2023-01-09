@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -19,8 +20,21 @@ import Sale from "./pages/categories/Sale";
 import Workspace from "./pages/categories/Workspace";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import useAuthStore from "./store/authStore";
 
 export function App() {
+    const user = useAuthStore();
+    useEffect(() => {
+        console.log("running auth check", user);
+        // get refreshToken from localStorage
+        const token = localStorage.getItem("token")
+            ? JSON.parse(localStorage.getItem("token"))
+            : "";
+        if (token.refresh) {
+            user.checkLoginStatus(token.refresh);
+        }
+    }, []);
+
     return (
         <div
             id="app"
@@ -54,8 +68,14 @@ export function App() {
                 {/* Cart */}
                 <Route path="/cart" element={<ShoppingCart />} />
                 {/* Auth */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route
+                    path="/login"
+                    element={user.loginStatus ? <Home /> : <Login />}
+                />
+                <Route
+                    path="/register"
+                    element={user.loginStatus ? <Home /> : <Register />}
+                />
                 {/* 404 */}
                 <Route path="*" element={<NotFound />} />
             </Routes>

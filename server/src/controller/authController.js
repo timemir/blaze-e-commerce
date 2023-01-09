@@ -9,7 +9,7 @@ var bcrypt = require("bcryptjs");
 
 function loginController(req, res) {
     User.findOne({
-        username: req.body.username,
+        email: req.body.email,
     })
         // replaces the role IDs with the actual role documents
         .populate("roles", "-__v")
@@ -114,6 +114,7 @@ async function refreshTokenController(req, res) {
 }
 
 function registerController(req, res) {
+    // console.log(req.body);
     // create a new user document
     const user = new User({
         username: req.body.username,

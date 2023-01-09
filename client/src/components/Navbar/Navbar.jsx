@@ -1,7 +1,9 @@
 import React from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/icons/iconTrans.png";
+import useAuthStore from "../../store/authStore";
 import Button from "../UI/General/Button";
 import HamburgerButton from "../UI/General/HamburgerButton";
 import SearchBar from "../UI/General/SearchBar";
@@ -9,6 +11,10 @@ import NavLinks from "./NavLinks";
 // import react icons
 
 export default function Navbar() {
+    const user = useAuthStore();
+    function handleLogout() {
+        user.logout();
+    }
     return (
         <div className="flex justify-between items-center text-white h-14 rounded-b-lg px-16 bg-blazePimary z-50">
             {/* Logo */}
@@ -24,15 +30,26 @@ export default function Navbar() {
             {/* Buttons */}
             <div className="hidden md:flex justify-center items-center space-x-2">
                 <SearchBar />
-                <Link to="/register">
-                    <Button>Register</Button>
-                </Link>
-                <Link to="/login">
-                    <Button outline> Login </Button>
-                </Link>
-                <Link to="/cart">
-                    <CgProfile className="text-2xl" />
-                </Link>
+                {!user.loginStatus ? (
+                    <>
+                        <Link to="/register">
+                            <Button>Register</Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button outline> Login </Button>
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/cart">
+                            <CgProfile className="text-2xl" />
+                        </Link>
+                        <AiOutlineLogout
+                            className="text-2xl transition hover:text-red-500"
+                            onClick={handleLogout}
+                        />
+                    </>
+                )}
             </div>
             {/* Mobile View */}
             <div className=" flex space-x-3 md:hidden">

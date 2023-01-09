@@ -1,7 +1,12 @@
 import React from "react";
+import useAuthStore from "../../../store/authStore";
 
 // Hero Background Image is a tailwind background. "bg-hero-bg"
 export default function Hero({ heroHeading, heroText, heroBtnText }) {
+    const user = useAuthStore();
+    function handleClick(e) {
+        console.log(user.loginStatus);
+    }
     return (
         <div
             id="hero"
@@ -16,6 +21,7 @@ export default function Hero({ heroHeading, heroText, heroBtnText }) {
             <button
                 type="button"
                 className="rounded-lg shadow-xl bg-blazeCTA p-4 font-bold text-white"
+                onClick={handleClick}
             >
                 {heroBtnText}
             </button>
