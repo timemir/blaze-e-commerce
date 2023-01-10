@@ -18,15 +18,18 @@ export default function NotFound() {
                     </div>
                 </div>
                 <div className="flex mt-8 space-x-4 justify-end mr-14">
-                    <Button className=" text-white w-40 px-1">
+                    <button
+                        type="button"
+                        className="text-white w-40 px-1 bg-blazeCTA rounded-lg transition hover:opacity-80"
+                    >
                         <Link to="/">Go back Home</Link>{" "}
-                    </Button>
-                    <Button
-                        outline
-                        className="border-2 w-36 border-blazeCTA px-1 text-blazePimary"
+                    </button>
+                    <button
+                        type="button"
+                        className="border-2 w-36 border-blazeCTA px-1 text-blazePimary rounded-lg transition hover:bg-blazeCTA hover:text-white"
                     >
                         Contact support
-                    </Button>
+                    </button>
                 </div>
             </div>
         </div>
