@@ -28,6 +28,10 @@ const {
 } = require("./controller/authController");
 const { verifySignUp, authJWT } = require("./middlewares");
 const db = require("./models");
+const {
+    getUsersController,
+    getUserByIdController,
+} = require("./controller/userController");
 const Role = db.role;
 // --------------------
 // SETUP _________________________________________________________________
@@ -75,6 +79,10 @@ app.get(
     moderatorBoard
 );
 app.get("/test/admin", [authJWT.verifyToken, authJWT.isAdmin], adminBoard);
+
+// Users
+app.get("/users", getUsersController);
+app.get("/users/:userId", getUserByIdController);
 // _______________________________________________________________________
 
 // POSTS _________________________________________________________________

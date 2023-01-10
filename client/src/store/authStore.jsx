@@ -35,7 +35,7 @@ const useAuthStore = create((set) => ({
             // if expired, returns error
             // if valid, returns {NEW accessToken, OLD refreshToken}
             const data = await response.json();
-            console.log("checkLoginStatus Output", data);
+            // console.log("checkLoginStatus Output", data);
             set({
                 loginStatus: Boolean(data.refreshToken),
                 accessToken: data.accessToken,

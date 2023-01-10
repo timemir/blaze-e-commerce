@@ -69,6 +69,7 @@ export default function AuthForm({ type }) {
                         refresh: data.refreshToken,
                     })
                 );
+                // TODO: Change route and not just reload window.
                 window.location.reload();
             }
         } catch (error) {

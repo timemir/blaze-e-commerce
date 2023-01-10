@@ -1,6 +1,6 @@
+import { Avatar } from "@boringer-avatars/react";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/icons/iconTrans.png";
 import useAuthStore from "../../store/authStore";
@@ -8,6 +8,7 @@ import Button from "../UI/General/Button";
 import HamburgerButton from "../UI/General/HamburgerButton";
 import SearchBar from "../UI/General/SearchBar";
 import NavLinks from "./NavLinks";
+
 // import react icons
 
 export default function Navbar() {
@@ -41,8 +42,21 @@ export default function Navbar() {
                     </>
                 ) : (
                     <>
-                        <Link to="/cart">
-                            <CgProfile className="text-2xl" />
+                        <Link to="/profile">
+                            <Avatar
+                                title={false}
+                                size={35}
+                                variant="beam"
+                                name={user.userId}
+                                square={false}
+                                colors={[
+                                    "#29BCB7",
+                                    "#009D94",
+                                    "#059165",
+                                    "#48BE91",
+                                    "#3A3E45", // Face
+                                ]}
+                            />
                         </Link>
                         <AiOutlineLogout
                             className="text-2xl transition hover:text-red-500"
@@ -53,8 +67,24 @@ export default function Navbar() {
             </div>
             {/* Mobile View */}
             <div className=" flex space-x-3 md:hidden">
-                {/* //TODO: Make avatar component */}
-                <CgProfile className="text-2xl" />
+                <Link to="/profile">
+                    {user.loginStatus && (
+                        <Avatar
+                            title={false}
+                            size={35}
+                            variant="beam"
+                            name={user.userId}
+                            square={false}
+                            colors={[
+                                "#29BCB7",
+                                "#009D94",
+                                "#059165",
+                                "#48BE91",
+                                "#3A3E45", // Face
+                            ]}
+                        />
+                    )}
+                </Link>
                 <HamburgerButton />
             </div>
         </div>

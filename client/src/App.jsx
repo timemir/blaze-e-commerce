@@ -20,12 +20,13 @@ import Sale from "./pages/categories/Sale";
 import Workspace from "./pages/categories/Workspace";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/user/Profile";
 import useAuthStore from "./store/authStore";
 
 export function App() {
     const user = useAuthStore();
     useEffect(() => {
-        console.log("running auth check", user);
+        // console.log("running auth check", user);
         // get refreshToken from localStorage
         const token = localStorage.getItem("token")
             ? JSON.parse(localStorage.getItem("token"))
@@ -75,6 +76,11 @@ export function App() {
                 <Route
                     path="/register"
                     element={user.loginStatus ? <Home /> : <Register />}
+                />
+                {/* User */}
+                <Route
+                    path="/profile"
+                    element={user.loginStatus ? <Profile /> : <Home />}
                 />
                 {/* 404 */}
                 <Route path="*" element={<NotFound />} />
