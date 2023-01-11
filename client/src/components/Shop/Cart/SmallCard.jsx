@@ -23,7 +23,9 @@ export default function SmallCard({ item }) {
             <div className="pr-2 py-2 my-auto">
                 <img
                     className="w-44 border rounded-lg overflow-hidden"
-                    src={item.image || "https://via.placeholder.com/150"}
+                    src={
+                        item.images[0].url || "https://via.placeholder.com/150"
+                    }
                     alt=""
                 />
             </div>

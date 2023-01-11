@@ -1,9 +1,10 @@
 import { Avatar } from "@boringer-avatars/react";
 import React from "react";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/icons/iconTrans.png";
 import useAuthStore from "../../store/authStore";
+import useCartStore from "../../store/shoppingCartStore";
 import Button from "../UI/General/Button";
 import HamburgerButton from "../UI/General/HamburgerButton";
 import SearchBar from "../UI/General/SearchBar";
@@ -13,6 +14,7 @@ import NavLinks from "./NavLinks";
 
 export default function Navbar() {
     const user = useAuthStore();
+    const cart = useCartStore();
     function handleLogout() {
         user.logout();
     }
@@ -57,6 +59,14 @@ export default function Navbar() {
                                     "#3A3E45", // Face
                                 ]}
                             />
+                        </Link>
+                        <Link className="relative" to="/cart">
+                            <AiOutlineShoppingCart className="text-2xl  transition hover:text-blazeCTA" />
+                            {cart.items.length !== 0 && (
+                                <div className="flex justify-center items-center absolute -top-2 -right-1 rounded-full bg-red-500 w-4 h-4 text-sm">
+                                    {cart.items.length}
+                                </div>
+                            )}
                         </Link>
                         <AiOutlineLogout
                             className="text-2xl transition hover:text-red-500"
