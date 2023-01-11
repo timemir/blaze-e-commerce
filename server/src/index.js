@@ -33,8 +33,13 @@ const {
     getUserByIdController,
 } = require("./controller/userController");
 const Role = db.role;
+const ItemModel = require("./models/Item");
 // --------------------
 // SETUP _________________________________________________________________
+// Stripe (Test Key)
+const stripe = require('stripe')('sk_test_51MP4ZHI4NZ5dL3BFQFwOzkHyEy94Yr2VaoQCjZhRrGUqLLGSok35K8pMIzqastrFkFib6dU9QfD6UQOTH24mWItC00UE4TpK9X');
+
+// Express
 const app = express();
 
 // Allow requests from any origin (for now TODO: restrict this later)
@@ -103,6 +108,31 @@ app.post(
     registerController
 );
 app.post("/auth/refreshToken", refreshTokenController); // used for creating new access tokens
+
+const YOUR_DOMAIN = 'http://localhost:3000';
+// Stripe Payment API
+app.post('/create-checkout-session', async (req, res) => {
+    // TODO: Setup Items on Stripe
+    // TODO: Create another route that sets up new items on Stripe automatically, when admin adds an item.... :(
+  const session = await stripe.checkout.sessions.create({
+    // TIP FROM STRIPE:
+    // Always keep sensitive information about your product inventory, 
+    // such as price and availability, on your server to prevent customer 
+    // manipulation from the client.
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price: 'price_1MP4o8I4NZ5dL3BFjzMUoVd4',
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `${YOUR_DOMAIN}?success=true`,
+    cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+  });
+
+  res.redirect(303, session.url);
+});
 // _______________________________________________________________________
 
 // DELETES _______________________________________________________________
